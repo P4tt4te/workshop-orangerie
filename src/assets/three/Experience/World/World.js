@@ -1,24 +1,28 @@
-import Experience from "../Experience";
-import Environment from "./Environment";
-import Floor from "./../World/Floor";
-import Fox from "./../World/Fox";
+import Experience from '../Experience'
+import Environment from './Environment'
+import Floor from './Floor'
+import Fox from './Fox'
+import FrontWall from './FrontWall'
+import BackWall from './BackWall'
 
 export default class World {
-  constructor() {
-    this.experience = new Experience();
-    this.scene = this.experience.scene;
-    this.resources = this.experience.resources;
+    constructor() {
+        this.experience = new Experience()
+        this.scene = this.experience.scene
+        this.resources = this.experience.resources
 
-    // Wait for resources
-    this.resources.on("ready", () => {
-      // Setup
-      this.floor = new Floor();
-      this.fox = new Fox();
-      this.environment = new Environment();
-    });
-  }
+        // Wait for resources
+        this.resources.on('ready', () => {
+            // Setup
+            this.floor = new Floor()
+            this.fox = new Fox()
+            this.frontwall = new FrontWall()
+            this.backwall = new BackWall()
+            this.environment = new Environment()
+        })
+    }
 
-  update() {
-    if (this.fox) this.fox.update();
-  }
+    update() {
+        if (this.fox) this.fox.update()
+    }
 }
