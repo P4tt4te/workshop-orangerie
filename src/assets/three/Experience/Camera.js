@@ -1,6 +1,7 @@
 import Experience from './Experience.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { PerspectiveCamera } from 'three'
+import gsap from 'gsap'
 
 export default class Camera {
     constructor() {
@@ -10,23 +11,24 @@ export default class Camera {
         this.canvas = this.experience.canvas
 
         this.setInstance()
-        this.setControls()
+        this.moveCamera()
+        //this.setControls();
     }
 
     setInstance() {
         this.instance = new PerspectiveCamera(
-            40,
+            35,
             this.sizes.width / this.sizes.height,
             0.1,
             100
         )
-        this.instance.position.set(6, 4, 8)
+        this.instance.position.set(0, 1, 5)
         this.scene.add(this.instance)
     }
 
     setControls() {
-        this.controls = new OrbitControls(this.instance, this.canvas)
-        this.controls.enableDamping = true
+        //this.controls = new OrbitControls(this.instance, this.canvas);
+        //this.controls.enableDamping = true;
     }
 
     resize() {
@@ -34,7 +36,46 @@ export default class Camera {
         this.instance.updateProjectionMatrix()
     }
 
+    moveCamera() {
+        const self = this
+        this.experience.goLeft.addEventListener(
+            'click',
+            function () {
+                gsap.timeline()
+                    .to(self.instance.position, { x: self.instance.position.x })
+                    .to(self.instance.position, {
+                        x: self.instance.position.x - 3,
+                    })
+            },
+            false
+        )
+
+        this.experience.goRight.addEventListener(
+            'click',
+            function () {
+                gsap.timeline()
+                    .to(self.instance.position, { x: self.instance.position.x })
+                    .to(self.instance.position, {
+                        x: self.instance.position.x + 3,
+                    })
+            },
+            false
+        )
+    }
+
+    navigation(position) {
+        if (position === 3) {
+            this.experience.goRight.style.display = 'none'
+        } else if (position === -3) {
+            this.experience.goLeft.style.display = 'none'
+        } else {
+            this.experience.goRight.style.display = 'block'
+            this.experience.goLeft.style.display = 'block'
+        }
+    }
+
     update() {
-        this.controls.update()
+        this.navigation(this.instance.position.x)
+        //this.controls.update();
     }
 }
