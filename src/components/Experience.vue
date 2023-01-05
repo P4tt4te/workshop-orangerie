@@ -12,7 +12,7 @@
 </style>
 
 <script>
-import Experience from "./../assets/three/Experience/Experience"
+import Experience from './../assets/three/Experience/Experience'
 
 export default {
     data() {

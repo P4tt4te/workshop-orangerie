@@ -5,7 +5,7 @@ export default {
     },
     data() {
         return {
-            test: "Test",
+            test: 'Test',
         }
     },
 }
