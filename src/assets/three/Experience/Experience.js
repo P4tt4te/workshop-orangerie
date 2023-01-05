@@ -12,7 +12,7 @@ import { Mesh, Scene } from 'three'
 let instance = null
 
 export default class Experience {
-    constructor(_canvas) {
+    constructor(_canvas, goLeft, goRight) {
         // Singleton
         if (instance) {
             return instance
@@ -24,6 +24,8 @@ export default class Experience {
 
         // Options
         this.canvas = _canvas
+        this.goLeft = goLeft
+        this.goRight = goRight
 
         // Setup
         this.debug = new Debug()
