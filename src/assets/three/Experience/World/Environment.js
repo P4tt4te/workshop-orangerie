@@ -16,17 +16,24 @@ export default class Environment {
         this.setSunLight()
         this.setFog()
         this.setEnvironmentMap()
-        this.scene.background = 'white'
+        this.scene.background = new THREE.Color('white')
     }
 
     setSunLight() {
+        /*
         this.sunLight = new THREE.DirectionalLight('#ffffff', 4)
         this.sunLight.castShadow = true
-        this.sunLight.shadow.camera.far = 15
+        this.sunLight.shadow.camera.far = 50
         this.sunLight.shadow.mapSize.set(1024, 1024)
         this.sunLight.shadow.normalBias = 0.05
-        this.sunLight.position.set(3.5, 2, -1.25)
+        this.sunLight.position.set(0, 30, 0)
+        this.sunLghtHelper = new THREE.DirectionalLightHelper(
+            this.sunLight,
+            5,
+            0xff0000
+        )
         this.scene.add(this.sunLight)
+        this.scene.add(this.sunLghtHelper)
 
         // Debug
         if (this.debug.active) {
@@ -40,28 +47,37 @@ export default class Environment {
             this.debugFolder.addInput(this.sunLight.position, 'x', {
                 min: -5,
                 max: 5,
-                step: 0.001,
+                step: 1,
                 label: 'sunLightX',
             })
 
             this.debugFolder.addInput(this.sunLight.position, 'y', {
                 min: -5,
-                max: 5,
-                step: 0.001,
+                max: 1000,
+                step: 1,
                 label: 'sunLightY',
             })
 
             this.debugFolder.addInput(this.sunLight.position, 'z', {
                 min: -5,
-                max: 5,
-                step: 0.001,
+                max: 1000,
+                step: 1,
                 label: 'sunLightZ',
             })
         }
+        */
+
+        this.sunLight = new THREE.PointLight(0xffffff, 1000)
+        this.sunLight.castShadow = true
+        this.sunLight.shadow.camera.far = 50
+        this.sunLight.shadow.mapSize.set(1024, 1024)
+        this.sunLight.shadow.normalBias = 0.05
+        this.sunLight.position.y = 10
+        this.scene.add(this.sunLight)
     }
 
     setFog() {
-        this.fog = new THREE.FogExp2(0xffffff, 0.035)
+        this.fog = new THREE.Fog('white', 40, 50)
         this.scene.fog = this.fog
     }
 

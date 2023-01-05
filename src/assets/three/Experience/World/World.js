@@ -1,7 +1,9 @@
 import Experience from '../Experience'
 import Environment from './Environment'
-import Floor from './../World/Floor'
-import Fox from './../World/Fox'
+import Floor from './Floor'
+import Fox from './Fox'
+import FrontWall from './FrontWall'
+import BackWall from './BackWall'
 
 export default class World {
     constructor() {
@@ -14,6 +16,8 @@ export default class World {
             // Setup
             this.floor = new Floor()
             this.fox = new Fox()
+            this.frontwall = new FrontWall()
+            this.backwall = new BackWall()
             this.environment = new Environment()
         })
     }

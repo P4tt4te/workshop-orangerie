@@ -6,7 +6,6 @@ export default class Floor {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-
         this.setGeometry()
         this.setTextures()
         this.setMaterial()
@@ -14,7 +13,7 @@ export default class Floor {
     }
 
     setGeometry() {
-        this.geometry = new THREE.PlaneGeometry(40, 40, 10, 10)
+        this.geometry = new THREE.PlaneGeometry(100, 100, 10, 10)
     }
 
     setTextures() {
@@ -42,7 +41,7 @@ export default class Floor {
         this.material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
             emissive: 0x292828,
-            roughness: 0.2,
+            roughness: 0.1,
             metalness: 0,
         })
     }
