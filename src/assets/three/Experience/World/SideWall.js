@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
 
-export default class BackWall {
+export default class SideWall {
     constructor() {
         this.experience = new Experience()
         this.scene = this.experience.scene
@@ -13,7 +13,7 @@ export default class BackWall {
     }
 
     setGeometry() {
-        this.geometry = new THREE.BoxGeometry(30, 8, 2, 10, 8, 1)
+        this.geometry = new THREE.BoxGeometry(2, 8, 22, 10, 8, 1)
     }
 
     setMaterial() {
@@ -29,7 +29,8 @@ export default class BackWall {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.receiveShadow = true
         this.mesh.position.y = 4
-        this.mesh.position.z = -15
+        this.mesh.position.x = 14
+        this.mesh.position.z = 3
         this.scene.add(this.mesh)
     }
 }

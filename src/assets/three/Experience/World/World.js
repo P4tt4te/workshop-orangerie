@@ -6,6 +6,8 @@ import LeftCube from './LeftCube'
 import RightCube from './RightCube'
 import FrontWall from './FrontWall'
 import BackWall from './BackWall'
+import SideWall from './SideWall'
+
 export default class World {
     constructor() {
         this.experience = new Experience()
@@ -23,6 +25,7 @@ export default class World {
             this.rightCube = new RightCube()
             this.frontwall = new FrontWall()
             this.backwall = new BackWall()
+            this.sidewall = new SideWall()
         })
     }
 
