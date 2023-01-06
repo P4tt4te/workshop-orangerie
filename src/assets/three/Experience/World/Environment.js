@@ -16,7 +16,7 @@ export default class Environment {
         this.setSunLight()
         this.setFog()
         this.setEnvironmentMap()
-        this.scene.background = new THREE.Color('white')
+        this.scene.background = new THREE.Color(0xffffff)
     }
 
     setSunLight() {
@@ -67,17 +67,23 @@ export default class Environment {
         }
         */
 
-        this.sunLight = new THREE.PointLight(0xffffff, 1000)
+        this.sunLight = new THREE.SpotLight(0xffffff, 2000)
         this.sunLight.castShadow = true
         this.sunLight.shadow.camera.far = 50
         this.sunLight.shadow.mapSize.set(1024, 1024)
         this.sunLight.shadow.normalBias = 0.05
-        this.sunLight.position.y = 10
+        this.sunLight.position.y = 40
+        this.sunLghtHelper = new THREE.SpotLightHelper(
+            this.sunLight,
+            5,
+            0xff0000
+        )
         this.scene.add(this.sunLight)
+        this.scene.add(this.sunLghtHelper)
     }
 
     setFog() {
-        this.fog = new THREE.Fog('white', 40, 50)
+        this.fog = new THREE.Fog(0xdedada, 40, 60)
         this.scene.fog = this.fog
     }
 
