@@ -1,63 +1,67 @@
 <template>
     <section class="Hub">
         <div
-            class="Portrait"
+            class="PreviewPortrait"
             v-for="(portrait, index) in portraits"
             :key="index"
-            @click="showModal(index)"
+            :style="{
+                backgroundImage: 'url(src/assets/img/' + portrait.image + ')',
+            }"
+            @click="showSlider(index)"
         >
-            <h2 class="Portrait__title">{{ portrait.title }}</h2>
-            <p>{{ portrait.date }}</p>
+            <h2 class="PreviewPortrait__title">{{ portrait.title }}</h2>
+            <p class="PreviewPortrait__date">{{ portrait.date }}</p>
+            <p class="PreviewPortrait__id">{{ portrait.id }}</p>
         </div>
-        <SinglePortrait
-            v-if="isModalActive"
+        <Slider
+            v-if="isSliderActive"
             :portraits="portraits"
             :currentIndex="currentIndex"
-            @closeModal="closeModal"
+            @closeSlider="closeSlider"
         />
     </section>
 </template>
 
 <script>
-import SinglePortrait from '@/components/SinglePortrait.vue'
+import Slider from '@/components/Slider.vue'
 
 export default {
     components: {
-        SinglePortrait,
+        Slider,
     },
     data() {
         return {
             currentIndex: 0,
-            isModalActive: false,
+            isSliderActive: false,
             portraits: [
                 {
                     id: '0',
                     title: 'Le Petit Pâtissier',
                     date: '1922-1923',
-                    image: 'img1',
+                    image: 'image1.jpeg',
                 },
                 {
                     id: '1',
                     title: 'La Fiancée',
                     date: '1923',
-                    image: 'img2',
+                    image: 'image3.jpeg',
                 },
                 {
                     id: '2',
                     title: 'Enfant de chœur',
                     date: '1927-1928',
-                    image: 'img3',
+                    image: 'image2.jpeg',
                 },
             ],
         }
     },
     methods: {
-        showModal(index) {
-            this.isModalActive = true
+        showSlider(index) {
+            this.isSliderActive = true
             this.currentIndex = index
         },
-        closeModal() {
-            this.isModalActive = false
+        closeSlider() {
+            this.isSliderActive = false
         },
     },
 }
@@ -66,14 +70,21 @@ export default {
 <style lang="scss">
 .Hub {
     display: flex;
+    height: 100%;
 
-    .Portrait {
+    .PreviewPortrait {
         border: 0.1rem solid $grey;
         height: 30rem;
         width: 20rem;
+        background-size: cover;
+        filter: grayscale(1);
 
         &:not(:last-child) {
             margin-right: 2rem;
+        }
+
+        &:hover {
+            filter: grayscale(0);
         }
     }
 }
