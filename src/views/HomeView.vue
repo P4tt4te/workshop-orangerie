@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="Home">
         <Hub />
     </main>
 </template>
@@ -13,3 +13,10 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+.Home {
+    position: relative;
+    max-height: 100vh;
+}
+</style>
