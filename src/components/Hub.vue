@@ -7,32 +7,32 @@
             :style="{
                 backgroundImage: 'url(src/assets/img/' + portrait.image + ')',
             }"
-            @click="showSlider(index)"
+            @click="showCarousel(index)"
         >
             <h2 class="PreviewPortrait__title">{{ portrait.title }}</h2>
             <p class="PreviewPortrait__date">{{ portrait.date }}</p>
             <p class="PreviewPortrait__id">{{ portrait.id }}</p>
         </div>
-        <Slider
-            v-if="isSliderActive"
+        <Carousel
+            v-if="isCarouselActive"
             :portraits="portraits"
             :currentIndex="currentIndex"
-            @closeSlider="closeSlider"
+            @closeCarousel="closeCarousel"
         />
     </section>
 </template>
 
 <script>
-import Slider from '@/components/Slider.vue'
+import Carousel from '@/components/Carousel.vue'
 
 export default {
     components: {
-        Slider,
+        Carousel,
     },
     data() {
         return {
             currentIndex: 0,
-            isSliderActive: false,
+            isCarouselActive: false,
             portraits: [
                 {
                     id: '0',
@@ -56,12 +56,12 @@ export default {
         }
     },
     methods: {
-        showSlider(index) {
-            this.isSliderActive = true
+        showCarousel(index) {
+            this.isCarouselActive = true
             this.currentIndex = index
         },
-        closeSlider() {
-            this.isSliderActive = false
+        closeCarousel() {
+            this.isCarouselActive = false
         },
     },
 }

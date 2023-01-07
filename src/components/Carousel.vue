@@ -1,12 +1,12 @@
 <template>
-    <section class="Slider">
+    <section class="Carousel">
         <Portrait v-for="(portrait, index) in portraits" :portrait="portrait" />
-        <div class="Slider__navigation">
+        <div class="Carousel__navigation">
             <button class="Portrait__prev" @click="goPrev">Prev</button>
             <button class="Portrait__next" @click="goNext">Next</button>
         </div>
-        <div class="Slider__close">
-            <button @click="$emit('closeSlider')">Close</button>
+        <div class="Carousel__close">
+            <button @click="$emit('closeCarousel')">Close</button>
         </div>
     </section>
 </template>
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss">
-.Slider {
+.Carousel {
     position: absolute;
     background-color: $white;
     width: 100%;
