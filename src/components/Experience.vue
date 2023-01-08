@@ -85,13 +85,13 @@ export default {
                     id: 1,
                     title: 'La Fiancée',
                     date: '1923',
-                    image: 'image3.jpeg',
+                    image: 'image2.jpeg',
                 },
                 {
                     id: 2,
                     title: 'Enfant de chœur',
                     date: '1927-1928',
-                    image: 'image2.jpeg',
+                    image: 'image3.jpeg',
                 },
             ],
         }
