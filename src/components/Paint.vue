@@ -72,21 +72,24 @@ $left: 167px;
     top: $top;
     width: 100px;
     height: 100px;
-    border: solid blue 4px;
     border-radius: 50px;
     animation: 2s ease-in-out pingEffect infinite;
     background-color: white;
-    box-shadow: inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
+    box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
+        inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
 }
 @keyframes pingEffect {
     0% {
-        border-opacity: 1;
+        box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
+            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
     }
     50% {
-        border-opacity: 0.2;
+        box-shadow: 0px 0px 20px 20px rgba(221, 225, 7, 0.25),
+            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
     }
     100% {
-        border-opacity: 1;
+        box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
+            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
     }
 }
 .sticker {
