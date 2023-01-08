@@ -29,10 +29,8 @@ export default {
     height: 100px;
     border-radius: 50%;
     transition: 0.2s 0.2s;
-    transform: translate3d(var(--left) + 50px, var(--top) + 50px, 0) scale(1.5)
-        rotate(-45deg);
+    transform: translate3d(var(--left), var(--top), 0) scale(1.5) rotate(-45deg);
     opacity: 0;
-
 }
 
 .stickerBack,

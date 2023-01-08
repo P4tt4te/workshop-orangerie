@@ -1,8 +1,5 @@
 <template>
-    <div
-        :class="'painthole'"
-        v-bind:style="{ '--top': top + 'px', '--left': left + 'px' }"
-    >
+    <div :class="'painthole'">
         <PingVue :top="top" :left="left" />
         <StickerVue :top="top" :left="left" :image="image" />
     </div>
