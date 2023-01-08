@@ -1,18 +1,15 @@
 <template>
     <main class="Home">
-        <Hub />
-        <!-- <Quiz /> -->
+        <Experience />
     </main>
 </template>
 
 <script>
-import Hub from '@/components/Hub.vue'
-import Quiz from '@/components/Quiz.vue'
+import Experience from '@/components/Experience.vue'
 
 export default {
     components: {
-        Hub,
-        Quiz
+        Experience,
     },
 }
 </script>

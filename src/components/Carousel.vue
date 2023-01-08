@@ -1,22 +1,37 @@
 <template>
     <section class="Carousel">
-        <Portrait v-for="(portrait, index) in portraits" :portrait="portrait" />
-        <div class="Carousel__navigation">
-            <button class="Portrait__prev" @click="goPrev">Prev</button>
-            <button class="Portrait__next" @click="goNext">Next</button>
-        </div>
-        <div class="Carousel__close">
-            <button @click="$emit('closeCarousel')">Close</button>
-        </div>
+        <button class="Carousel__close" @click="$emit('closeCarousel')">
+            Fermer
+        </button>
+        <swiper
+            :slides-per-view="1"
+            :space-between="25"
+            navigation
+            :initial-slide="currentIndex"
+            :simulate-touch="false"
+        >
+            <swiper-slide v-for="(portrait, index) in portraits">
+                <Portrait :portrait="portrait" />
+            </swiper-slide>
+        </swiper>
     </section>
 </template>
 
 <script>
 import Portrait from '@/components/Portrait.vue'
 
+import { Scrollbar, Mousewheel, Navigation } from 'swiper'
+import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
+
+import 'swiper/swiper-bundle.css'
+
+SwiperCore.use([Scrollbar, Mousewheel, Navigation])
+
 export default {
     components: {
         Portrait,
+        Swiper,
+        SwiperSlide,
     },
     props: {
         portraits: Array,
@@ -27,24 +42,28 @@ export default {
             index: this.$props.currentIndex,
         }
     },
-    methods: {
-        goPrev() {
-            this.index =
-                this.index - 1 < 0 ? this.portraits.length - 1 : this.index - 1
-        },
-        goNext() {
-            this.index = (this.index + 1) % this.portraits.length
-        },
-    },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .Carousel {
     position: absolute;
     background-color: $white;
     width: 100%;
     height: 100%;
     display: flex;
+    padding: 2rem;
+
+    &__close {
+        position: absolute;
+        z-index: 10;
+        right: 2rem;
+    }
+
+    .swiper-container,
+    .swiper-wrapper,
+    .swiper-slide {
+        width: 100% !important;
+    }
 }
 </style>
