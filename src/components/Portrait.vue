@@ -46,7 +46,6 @@ export default {
     },
     props: {
         portrait: Object,
-        pauseAudio: Boolean,
     },
     data() {
         return {
@@ -86,12 +85,14 @@ export default {
             if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
                 this.isComplete = true
 
-                this.clearAudio()
-                this.audio = new Audio(
-                    `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
-                )
-                this.audio.load()
-                this.audio.play()
+                /* TODO: Wait for the last audio to be finished before launching the final */
+
+                // this.clearAudio()
+                // this.audio = new Audio(
+                //     `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
+                // )
+                // this.audio.load()
+                // this.audio.play()
             }
         },
         checkGoodAnswers(answer) {

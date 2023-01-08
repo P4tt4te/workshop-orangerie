@@ -45,7 +45,6 @@ export default {
     data() {
         return {
             index: this.$props.currentIndex,
-            pauseAudio: false,
         }
     },
     methods: {
