@@ -1,7 +1,7 @@
 <template>
     <div :class="'paintContainer'">
         <img :class="'paint'" :src="image" alt="tableau" />
-        <div :class="'ping'"></div>
+        <PingVue :top="617" :left="167" />
         <div :class="'sticker'">
             <img :class="'stickerFront'" :src="sticker3" alt="sticker" />
             <div :class="'stickerBack'"></div>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import PingVue from './Ping.vue'
 import enfantdecoeur from '../assets/artwork/enfantdecoeur.jpg'
 import enfantdecoeursticker3 from '../assets/artwork/enfantdecoeur/sticker3.png'
 import enfantdecoeursticker2 from '../assets/artwork/enfantdecoeur/sticker2.png'
@@ -17,11 +18,16 @@ import lafiancee from '../assets/artwork/lafiancee.jpg'
 import lepetitpatissier from '../assets/artwork/lepetitpatissier.jpg'
 
 export default {
+    components: {
+        PingVue,
+    },
     props: {
         variant: {
             validator: function (value) {
                 return [
-                    'enfantdecoeur' | 'lafiancee' | 'lepetitpatissier',
+                    'enfantdecoeur',
+                    'lafiancee',
+                    'lepetitpatissier',
                 ].includes(value)
             },
         },
@@ -64,33 +70,6 @@ $left: 167px;
 .paint {
     height: 100%;
     width: max-content;
-}
-.ping {
-    position: absolute;
-    top: 0;
-    left: $left;
-    top: $top;
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-    animation: 2s ease-in-out pingEffect infinite;
-    background-color: white;
-    box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
-        inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
-}
-@keyframes pingEffect {
-    0% {
-        box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
-            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
-    }
-    50% {
-        box-shadow: 0px 0px 20px 20px rgba(221, 225, 7, 0.25),
-            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
-    }
-    100% {
-        box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
-            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
-    }
 }
 .sticker {
     display: block;
