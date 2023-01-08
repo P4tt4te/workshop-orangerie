@@ -6,7 +6,7 @@
             navigation
             :initial-slide="currentIndex"
             :simulate-touch="false"
-            @slideChange="clearAudio"
+            @slideChange="slideChange"
         >
             <swiper-slide v-for="portrait in portraits">
                 <Portrait :portrait="portrait" />
@@ -49,8 +49,8 @@ export default {
         }
     },
     methods: {
-        clearAudio() {
-            bus.$emit('clearAudio')
+        slideChange() {
+            bus.$emit('slideChange')
         },
     },
 }

@@ -58,7 +58,8 @@ export default {
         }
     },
     created() {
-        bus.$on('clearAudio', () => {
+        bus.$on('slideChange', () => {
+            this.isQuizActive = false
             this.clearAudio()
         })
     },
