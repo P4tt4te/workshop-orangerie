@@ -15,10 +15,10 @@
 </template>
 
 <script>
+import portraits from '@/assets/data/portraits.json'
+
 import Previews from '@/components/Previews.vue'
 import Carousel from '@/components/Carousel.vue'
-
-import data from '@/assets/data/portraits.json'
 
 export default {
     components: {
@@ -29,7 +29,7 @@ export default {
         return {
             currentIndex: 0,
             isCarouselActive: false,
-            portraits: data
+            portraits,
         }
     },
     methods: {
