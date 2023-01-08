@@ -56,17 +56,17 @@ export default {
             this.isQuizActive = true
             this.currentQuestion = this.portrait.questions[index]
         },
-        revealPoi(answeredQuestion) {
-            this.portrait.questions[answeredQuestion.id].isAnswered = true
+        revealPoi(question) {
+            this.portrait.questions[question.id].isAnswered = true
+            this.$refs.poi[question.id].classList.add('revealed')
+            this.isQuizActive = false
 
             this.clearAudio()
             this.audio = new Audio(
-                `src/assets/paintings/painting-${this.portrait.id}/audios/${answeredQuestion.id}.mp3`
+                `src/assets/paintings/painting-${this.portrait.id}/audios/${question.id}.mp3`
             )
+            this.audio.load()
             this.audio.play()
-
-            this.$refs.poi[answeredQuestion.id].classList.add('revealed')
-            this.isQuizActive = false
         },
         clearAudio() {
             if (this.audio) {

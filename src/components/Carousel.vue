@@ -1,8 +1,5 @@
 <template>
     <section class="Carousel">
-        <button class="Carousel__close" @click="$emit('closeCarousel')">
-            Fermer
-        </button>
         <swiper
             :slides-per-view="1"
             :space-between="25"
@@ -10,10 +7,13 @@
             :initial-slide="currentIndex"
             :simulate-touch="false"
         >
-            <swiper-slide v-for="(portrait, index) in portraits">
+            <swiper-slide v-for="portrait in portraits">
                 <Portrait :portrait="portrait" />
             </swiper-slide>
         </swiper>
+        <button class="Carousel__close" @click="$emit('closeCarousel')">
+            Fermer
+        </button>
     </section>
 </template>
 
