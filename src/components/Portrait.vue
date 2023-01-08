@@ -30,6 +30,9 @@
                 :currentQuestion="currentQuestion"
                 @revealPoi="revealPoi"
             />
+            <div v-if="isComplete">
+                [Afficher la vidéo à la place du portrait]
+            </div>
         </div>
     </div>
 </template>
@@ -50,6 +53,8 @@ export default {
             isQuizActive: false,
             currentQuestion: null,
             audio: null,
+            isComplete: false,
+            goodAnswers: [],
         }
     },
     created() {
@@ -73,6 +78,23 @@ export default {
             )
             this.audio.load()
             this.audio.play()
+
+            this.portrait.questions.forEach((answer) => {
+                this.goodAnswers.push(answer)
+            })
+            if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
+                this.isComplete = true
+
+                this.clearAudio()
+                this.audio = new Audio(
+                    `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
+                )
+                this.audio.load()
+                this.audio.play()
+            }
+        },
+        checkGoodAnswers(answer) {
+            return answer.isAnswered === true
         },
         clearAudio() {
             if (this.audio) {
