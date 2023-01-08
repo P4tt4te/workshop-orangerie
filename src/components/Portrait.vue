@@ -12,7 +12,14 @@
                 }"
                 @click="startQuiz(index)"
             ></div>
-            <img :src="'src/assets/img/' + portrait.image" alt="" />
+            <img
+                :src="
+                    'src/assets/paintings/painting-' +
+                    portrait.id +
+                    '/image.jpeg'
+                "
+                alt=""
+            />
         </div>
         <div class="Portrait__meta">
             <h2 class="Portrait__title">{{ portrait.title }}</h2>
@@ -41,6 +48,7 @@ export default {
         return {
             isQuizActive: false,
             currentQuestion: null,
+            audio: null,
         }
     },
     methods: {
@@ -50,10 +58,28 @@ export default {
         },
         revealPoi(answeredQuestion) {
             this.portrait.questions[answeredQuestion.id].isAnswered = true
-            this.$refs.poi[answeredQuestion.id].classList.add('revealed')
 
-            console.log(this.portrait.questions)
+            this.clearAudio()
+            this.audio = new Audio(
+                `src/assets/paintings/painting-${this.portrait.id}/audios/${answeredQuestion.id}.mp3`
+            )
+            this.audio.play()
+
+            this.$refs.poi[answeredQuestion.id].classList.add('revealed')
+            this.isQuizActive = false
         },
+        clearAudio() {
+            if (this.audio) {
+                this.audio.pause()
+                this.audio = null
+            }
+        },
+    },
+    mounted() {
+        this.$parent.$on('clearAudio', this.clearAudio())
+    },
+    beforeDestroy() {
+        this.clearAudio()
     },
 }
 </script>
@@ -67,7 +93,6 @@ export default {
 
     &__illus {
         position: relative;
-        width: 100rem;
 
         img {
             object-fit: contain;
@@ -77,7 +102,7 @@ export default {
 
     &__meta {
         flex: 1;
-        padding-right: 10rem;
+        padding: 5rem;
     }
 
     &__title {
