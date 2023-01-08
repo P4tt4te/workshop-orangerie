@@ -9,7 +9,14 @@
                 @click="$emit('showCarousel', index)"
             >
                 <div class="item__illus">
-                    <img :src="'src/assets/img/' + portrait.image" alt="" />
+                    <img
+                        :src="
+                            'src/assets/paintings/painting-' +
+                            portrait.id +
+                            '/image.jpeg'
+                        "
+                        alt=""
+                    />
                 </div>
                 <h2 class="item__title">{{ portrait.title }}</h2>
                 <p class="item__date">{{ portrait.date }}</p>
