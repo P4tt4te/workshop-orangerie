@@ -43,6 +43,7 @@ export default {
     },
     props: {
         portrait: Object,
+        pauseAudio: Boolean,
     },
     data() {
         return {
@@ -50,6 +51,11 @@ export default {
             currentQuestion: null,
             audio: null,
         }
+    },
+    created() {
+        bus.$on('clearAudio', () => {
+            this.clearAudio()
+        })
     },
     methods: {
         startQuiz(index) {
@@ -74,9 +80,6 @@ export default {
                 this.audio = null
             }
         },
-    },
-    mounted() {
-        this.$parent.$on('clearAudio', this.clearAudio())
     },
     beforeDestroy() {
         this.clearAudio()

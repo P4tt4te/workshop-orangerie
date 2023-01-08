@@ -6,6 +6,7 @@
             navigation
             :initial-slide="currentIndex"
             :simulate-touch="false"
+            @slideChange="clearAudio"
         >
             <swiper-slide v-for="portrait in portraits">
                 <Portrait :portrait="portrait" />
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Portrait from '@/components/Portrait.vue'
 
 import { Navigation } from 'swiper'
@@ -37,10 +39,19 @@ export default {
         portraits: Array,
         currentIndex: Number,
     },
+    created() {
+        window.bus = new Vue({})
+    },
     data() {
         return {
             index: this.$props.currentIndex,
+            pauseAudio: false,
         }
+    },
+    methods: {
+        clearAudio() {
+            bus.$emit('clearAudio')
+        },
     },
 }
 </script>
