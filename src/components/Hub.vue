@@ -1,6 +1,6 @@
 <template>
     <section class="Hub">
-        <div><PaintVue :variant="'enfantdecoeur'" /></div>
+        <div><PaintVue :variant="'enfantdecoeur'" alt="sticker" /></div>
         <div>Portrait 2</div>
         <div>Portrait 3</div>
     </section>
