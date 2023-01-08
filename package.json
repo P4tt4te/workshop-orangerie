@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "gsap": "^3.5.1",
+    "swiper-vue2": "^1.0.10",
     "vue": "^2.7.7",
     "vue-router": "^3.5.4"
   },
