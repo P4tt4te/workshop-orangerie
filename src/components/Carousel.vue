@@ -20,12 +20,12 @@
 <script>
 import Portrait from '@/components/Portrait.vue'
 
-import { Scrollbar, Mousewheel, Navigation } from 'swiper'
+import { Navigation } from 'swiper'
 import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
 
 import 'swiper/swiper-bundle.css'
 
-SwiperCore.use([Scrollbar, Mousewheel, Navigation])
+SwiperCore.use([Navigation])
 
 export default {
     components: {

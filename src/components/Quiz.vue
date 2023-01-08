@@ -33,7 +33,6 @@ export default {
         },
         checkAnswer() {
             if (this.selectedOption === this.currentQuestion.answer) {
-                this.currentQuestion.isAnswered = true
                 this.$emit('revealPoi', this.currentQuestion)
             } else {
                 alert('Mauvaise réponse!')
