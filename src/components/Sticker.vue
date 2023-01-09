@@ -1,7 +1,7 @@
 <template>
     <div
         :class="'sticker'"
-        v-bind:style="{ '--top': top + 'px', '--left': left + 'px' }"
+        v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
     >
         <img :class="'stickerFront'" :src="image" alt="sticker" />
         <div :class="'stickerBack'"></div>
@@ -20,16 +20,16 @@ export default {
 .sticker {
     display: block;
     position: absolute;
-    top: 0;
+    top: var(--top);
     right: 0;
     bottom: 0;
-    left: 0;
+    left: var(--left);
     z-index: 5;
-    width: 100px;
-    height: 100px;
+    width: 20vh;
+    height: 20vh;
     border-radius: 50%;
     transition: 0.2s 0.2s;
-    transform: translate3d(var(--left), var(--top), 0) scale(1.5) rotate(-45deg);
+    transform: translate3d(100px, 100px, 0) scale(1.5) rotate(-45deg);
     opacity: 0;
 }
 
@@ -48,8 +48,8 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 100px;
-        height: 100px;
+        width: 20vh;
+        height: 20vh;
         border-radius: 50%;
         transition: 0.35s;
     }
@@ -59,7 +59,7 @@ export default {
     height: 0;
 }
 .stickerBack {
-    top: 100px;
+    top: 20vh;
     overflow: hidden;
 
     &:before {

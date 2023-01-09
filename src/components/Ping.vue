@@ -1,7 +1,7 @@
 <template>
     <div
         :class="'ping'"
-        v-bind:style="{ '--top': top + 'px', '--left': left + 'px' }"
+        v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
     ></div>
 </template>
 <script>
@@ -15,12 +15,11 @@ export default {
 <style lang="scss">
 .ping {
     position: absolute;
-    top: 0;
     left: var(--left);
     top: var(--top);
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+    width: 20vh;
+    height: 20vh;
+    border-radius: 50%;
     animation: 2s ease-in-out pingEffect infinite;
     background-color: white;
 }
