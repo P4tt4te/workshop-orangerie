@@ -85,17 +85,17 @@ export default {
             if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
                 this.isComplete = true
 
-                /* TODO: Wait for the last audio to be finished before launching the final one */
-                // myAudio.addEventListener('ended', function () {
-                //     myAudio.currentTime = 0
-                //     console.log('ended')
-                // })
-                // this.clearAudio()
-                // this.audio = new Audio(
-                //     `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
-                // )
-                // this.audio.load()
-                // this.audio.play()
+                this.audio.addEventListener('ended', () => {
+                    this.audio.currentTime = 0
+                    this.clearAudio()
+                    this.audio = new Audio(
+                        `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
+                    )
+                    setTimeout(() => {
+                        this.audio.load()
+                        this.audio.play()
+                    }, 2000)
+                })
             }
         },
         checkGoodAnswers(answer) {
