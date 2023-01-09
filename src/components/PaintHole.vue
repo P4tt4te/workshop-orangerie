@@ -1,22 +1,21 @@
 <template>
     <div
-        class="painthole"
-        v-bind:class="{ active: status }"
-        v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
+        :class="[status && activeClass, paintholeClass]"
+        :style="{ '--top': top + '%', '--left': left + '%' }"
     >
-        <PingVue :top="top" :left="left" :status="status" />
-        <StickerVue :top="top" :left="left" :image="image" />
+        <Ping :top="top" :left="left" :status="status" />
+        <Sticker :top="top" :left="left" :image="image" />
     </div>
 </template>
 
 <script>
-import PingVue from './Ping.vue'
-import StickerVue from './Sticker.vue'
+import Ping from './Ping.vue'
+import Sticker from './Sticker.vue'
 
 export default {
     components: {
-        PingVue,
-        StickerVue,
+        Ping,
+        Sticker,
     },
     props: {
         image: String,
@@ -24,20 +23,26 @@ export default {
         left: Number,
         status: Boolean,
     },
+    data() {
+        return {
+            activeClass: 'active',
+            paintholeClass: 'Painthole',
+        }
+    },
 }
 </script>
 
 <style lang="scss">
 $size: 15vh;
 
-.painthole {
+.Painthole {
     position: absolute;
     width: $size;
     height: $size;
     top: var(--top);
     left: var(--left);
     z-index: 10;
-    &.active .sticker {
+    &.active .Sticker {
         transform: translate3d(
                 var(--left) - calc($size / 2),
                 var(--top) - calc($size / 2),

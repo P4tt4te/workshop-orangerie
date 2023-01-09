@@ -1,8 +1,7 @@
 <template>
     <div
-        class="ping"
-        v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
-        v-bind:class="{ active: !status }"
+        :style="{ '--top': top + '%', '--left': left + '%' }"
+        :class="[!status && activeClass, pingClass]"
     ></div>
 </template>
 <script>
@@ -12,12 +11,18 @@ export default {
         left: Number,
         status: Boolean,
     },
+    data() {
+        return {
+            activeClass: 'active',
+            pingClass: 'Ping',
+        }
+    },
 }
 </script>
 <style lang="scss">
 $size: 15vh;
 
-.ping {
+.Ping {
     position: absolute;
     left: var(--left);
     top: var(--top);
@@ -27,7 +32,7 @@ $size: 15vh;
     background-color: transparent;
 }
 
-.ping.active {
+.Ping.active {
     background-color: white;
     animation: 2s ease-in-out pingEffect infinite;
 }

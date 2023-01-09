@@ -1,10 +1,10 @@
 <template>
     <div
-        :class="'sticker'"
+        class="Sticker"
         v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
     >
-        <img :class="'stickerFront'" :src="image" alt="sticker" />
-        <div :class="'stickerBack'"></div>
+        <img class="stickerFront" :src="image" alt="sticker" />
+        <div class="stickerBack"></div>
     </div>
 </template>
 <script>
@@ -19,7 +19,7 @@ export default {
 <style lang="scss">
 $size: 15vh;
 
-.sticker {
+.Sticker {
     display: block;
     position: absolute;
     top: var(--top);
