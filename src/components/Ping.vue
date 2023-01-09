@@ -1,7 +1,8 @@
 <template>
     <div
-        :class="'ping'"
+        class="ping"
         v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
+        v-bind:class="{ active: !status }"
     ></div>
 </template>
 <script>
@@ -9,6 +10,7 @@ export default {
     props: {
         top: Number,
         left: Number,
+        status: Boolean,
     },
 }
 </script>
@@ -22,9 +24,14 @@ $size: 15vh;
     width: $size;
     height: $size;
     border-radius: 50%;
-    animation: 2s ease-in-out pingEffect infinite;
-    background-color: white;
+    background-color: transparent;
 }
+
+.ping.active {
+    background-color: white;
+    animation: 2s ease-in-out pingEffect infinite;
+}
+
 @keyframes pingEffect {
     0% {
         box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),

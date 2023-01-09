@@ -9,7 +9,11 @@
                 :left="poi.coords.x"
                 :top="poi.coords.y"
                 :image="
-                    'src/assets/paintings/painting-2' + '/stickers/sticker2.png'
+                    'src/assets/paintings/painting-' +
+                    portrait.id +
+                    '/stickers/sticker' +
+                    (index + 1) +
+                    '.png'
                 "
                 :status="poi.isAnswered"
             />

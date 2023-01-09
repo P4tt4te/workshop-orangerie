@@ -4,7 +4,7 @@
         v-bind:class="{ active: status }"
         v-bind:style="{ '--top': top + '%', '--left': left + '%' }"
     >
-        <PingVue :top="top" :left="left" />
+        <PingVue :top="top" :left="left" :status="status" />
         <StickerVue :top="top" :left="left" :image="image" />
     </div>
 </template>
