@@ -29,13 +29,13 @@ export default {
     methods: {
         selectOption(event) {
             this.selectedOption = event.target.innerText.slice(3).trim()
-            this.checkAnswer()
+            this.checkAnswer(event)
         },
-        checkAnswer() {
+        checkAnswer(event) {
             if (this.selectedOption === this.currentQuestion.answer) {
                 this.$emit('revealPoi', this.currentQuestion)
             } else {
-                alert('Mauvaise réponse!')
+                event.target.classList.add('Quiz__button--bad-answer')
             }
         },
     },
@@ -62,9 +62,37 @@ export default {
             color: $white;
         }
 
+        &--bad-answer {
+            background-color: $red;
+            pointer-events: none;
+            animation: 0.25s wiggle forwards;
+        }
+
         &:not(:last-child) {
             margin-bottom: 2rem;
         }
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        transform: translateX(-1%);
+    }
+
+    25% {
+        transform: translateX(2%);
+    }
+
+    50% {
+        transform: translateX(-1%);
+    }
+
+    75% {
+        transform: translateX(-2%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }
 </style>

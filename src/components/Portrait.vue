@@ -31,7 +31,8 @@
                 @revealPoi="revealPoi"
             />
             <div v-if="isComplete">
-                [Afficher la vidéo à la place du portrait]
+                <p>Merci de m'avoir entièrement restauré!</p>
+                <p>[Afficher la vidéo à la place de l'image]</p>
             </div>
         </div>
     </div>
