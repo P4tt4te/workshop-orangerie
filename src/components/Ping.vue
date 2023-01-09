@@ -13,12 +13,14 @@ export default {
 }
 </script>
 <style lang="scss">
+$size: 15vh;
+
 .ping {
     position: absolute;
     left: var(--left);
     top: var(--top);
-    width: 20vh;
-    height: 20vh;
+    width: $size;
+    height: $size;
     border-radius: 50%;
     animation: 2s ease-in-out pingEffect infinite;
     background-color: white;

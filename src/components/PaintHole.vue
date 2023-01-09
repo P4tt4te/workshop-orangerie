@@ -28,27 +28,33 @@ export default {
 </script>
 
 <style lang="scss">
+$size: 15vh;
+
 .painthole {
     position: absolute;
-    width: 20vh;
-    height: 20vh;
+    width: $size;
+    height: $size;
     top: var(--top);
     left: var(--left);
     z-index: 10;
     &.active .sticker {
-        transform: translate3d(var(--left) - 10vh, var(--top) - 10vh, 0)
+        transform: translate3d(
+                var(--left) - calc($size / 2),
+                var(--top) - calc($size / 2),
+                0
+            )
             scale(1) rotate(0deg);
         transition-delay: 0s;
         opacity: 1;
         .stickerFront {
-            height: 20vh;
+            height: $size;
         }
 
         .stickerBack {
             top: 0;
 
             &:before {
-                top: -20vh;
+                top: -$size;
             }
         }
     }

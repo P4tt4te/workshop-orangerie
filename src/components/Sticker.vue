@@ -17,6 +17,8 @@ export default {
 }
 </script>
 <style lang="scss">
+$size: 15vh;
+
 .sticker {
     display: block;
     position: absolute;
@@ -25,8 +27,8 @@ export default {
     bottom: 0;
     left: var(--left);
     z-index: 5;
-    width: 20vh;
-    height: 20vh;
+    width: $size;
+    height: $size;
     border-radius: 50%;
     transition: 0.2s 0.2s;
     transform: translate3d(100px, 100px, 0) scale(1.5) rotate(-45deg);
@@ -48,8 +50,8 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 20vh;
-        height: 20vh;
+        width: $size;
+        height: $size;
         border-radius: 50%;
         transition: 0.35s;
     }
@@ -59,7 +61,7 @@ export default {
     height: 0;
 }
 .stickerBack {
-    top: 20vh;
+    top: $size;
     overflow: hidden;
 
     &:before {
