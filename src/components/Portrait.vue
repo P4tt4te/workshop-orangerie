@@ -1,7 +1,7 @@
 <template>
     <div class="Portrait">
         <div class="Portrait__illus">
-            <div
+            <button
                 class="Portrait__poi"
                 v-for="(poi, index) in portrait.questions"
                 ref="poi"
@@ -11,7 +11,7 @@
                     top: poi.coords.y + '%',
                 }"
                 @click="startQuiz(index)"
-            ></div>
+            ></button>
             <img
                 :src="
                     'src/assets/paintings/painting-' +
@@ -31,7 +31,8 @@
                 @revealPoi="revealPoi"
             />
             <div v-if="isComplete">
-                [Afficher la vidéo à la place du portrait]
+                <p>Merci de m'avoir entièrement restauré!</p>
+                <p>[Afficher la vidéo à la place de l'image]</p>
             </div>
         </div>
     </div>
