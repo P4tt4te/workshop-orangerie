@@ -8,7 +8,7 @@
             :simulate-touch="false"
             @slideChange="slideChange"
         >
-            <swiper-slide v-for="portrait in portraits">
+            <swiper-slide v-for="(portrait, index) in portraits" :key="index">
                 <Portrait :portrait="portrait" />
             </swiper-slide>
         </swiper>

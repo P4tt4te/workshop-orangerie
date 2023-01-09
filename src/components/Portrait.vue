@@ -69,7 +69,7 @@ export default {
         },
         revealPoi(question) {
             this.portrait.questions[question.id].isAnswered = true
-            this.$refs.poi[question.id].classList.add('revealed')
+            this.$refs.poi[question.id].classList.add('hidden')
             this.isQuizActive = false
 
             this.clearAudio()
@@ -85,8 +85,11 @@ export default {
             if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
                 this.isComplete = true
 
-                /* TODO: Wait for the last audio to be finished before launching the final */
-
+                /* TODO: Wait for the last audio to be finished before launching the final one */
+                // myAudio.addEventListener('ended', function () {
+                //     myAudio.currentTime = 0
+                //     console.log('ended')
+                // })
                 // this.clearAudio()
                 // this.audio = new Audio(
                 //     `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
@@ -144,8 +147,10 @@ export default {
         position: absolute;
         transition: opacity 1s cubic-bezier(0.215, 0.61, 0.355, 1);
 
-        &.revealed {
+        &.hidden {
             opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
     }
 }
