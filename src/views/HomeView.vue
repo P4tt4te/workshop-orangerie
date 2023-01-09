@@ -1,15 +1,22 @@
 <template>
-    <main>
-        <Hub />
+    <main class="Home">
+        <Experience />
     </main>
 </template>
 
 <script>
-import Hub from '@/components/Hub.vue'
+import Experience from '@/components/Experience.vue'
 
 export default {
     components: {
-        Hub
+        Experience,
     },
 }
 </script>
+
+<style lang="scss">
+.Home {
+    position: relative;
+    height: 100vh;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <AppHeader />
+        <!-- <AppHeader /> -->
         <router-view />
     </div>
 </template>
@@ -10,7 +10,11 @@ import AppHeader from '@/components/AppHeader.vue'
 
 export default {
     components: {
-        AppHeader
+        AppHeader,
     },
 }
 </script>
+
+<style lang="scss">
+@import '@/assets/scss/index.scss';
+</style>
