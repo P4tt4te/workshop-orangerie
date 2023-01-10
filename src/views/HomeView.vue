@@ -1,6 +1,8 @@
 <template>
-    <main class="Home">
-        <Experience />
+    <fragment>
+        <main class="Home">
+            <Experience />
+        </main>
         <div class="container">
             <video
                 class="input_video"
@@ -9,7 +11,6 @@
                 width="100%"
                 height="100%"
             ></video>
-
             <canvas
                 class="output_canvas"
                 ref="output_canvas"
@@ -19,16 +20,18 @@
             <div id="div1"></div>
             <button>coucou</button>
         </div>
-    </main>
+    </fragment>
 </template>
 
 <script>
 import Experience from '@/components/Experience.vue'
-import { Hands } from '@mediapipe/hands'
-import { Camera } from '@mediapipe/camera_utils'
-import * as handPoseDetection from '@tensorflow-models/hand-pose-detection'
 import '@tensorflow/tfjs-backend-cpu'
 import '@tensorflow/tfjs-backend-webgl'
+import { Hands } from '@mediapipe/hands'
+import { Camera } from '@mediapipe/camera_utils'
+
+import cursor from '../assets/cursor.svg'
+import cursorClick from '../assets/cursor-click.svg'
 
 export default {
     name: 'HomeView',
@@ -44,6 +47,7 @@ export default {
             hand: null,
             mousePosX: 0,
             mousePosY: 0,
+            isHandClosed: false,
         }
     },
     computed: {
@@ -57,7 +61,6 @@ export default {
             document.getElementsByClassName('output_canvas')[0]
         canvasElement.width = innerWidth
         canvasElement.height = innerHeight
-        console.log(canvasElement.width, innerWidth)
         this.init()
     },
     methods: {
@@ -97,6 +100,8 @@ export default {
                 results.image.height
             )
             this.drawHands(results)
+            this.handGesture(results)
+            this.handleCursor()
             this.ctx.restore()
         },
         async drawHands(results) {
@@ -104,32 +109,70 @@ export default {
                 for (const landmarks of results.multiHandLandmarks) {
                     this.hand = [landmarks[9]]
                 }
-                let handX = this.hand[0].x * innerWidth
-                let handY = this.hand[0].y * innerHeight
-                // this.ctx.beginPath()
-                // this.ctx.arc(handX, handY, 40, 0, 2 * Math.PI)
-                // this.ctx.fill()
-                document.getElementById('div1').style.top = handY + 'px'
-                document.getElementById('div1').style.left = handX + 'px'
+                this.mousePosX = this.hand[0].x * innerWidth
+                this.mousePosY = this.hand[0].y * innerHeight
+                document.getElementById('cursor').style.top =
+                    this.mousePosY - 200 + 'px'
+                document.getElementById('cursor').style.left =
+                    this.mousePosX - 100 + 'px'
+            }
+        },
+        handGesture(results) {
+            if (results.multiHandLandmarks) {
+                for (const landmarks of results.multiHandLandmarks) {
+                    const topFingerPoints = [
+                        landmarks[8],
+                        landmarks[12],
+                        landmarks[16],
+                        landmarks[20],
+                    ]
+                    const isclosed = (currentValue) =>
+                        currentValue.y > this.hand[0].y
 
-                const model = handPoseDetection.SupportedModels.MediaPipeHands
-                const detectorConfig = {
-                    runtime: 'mediapipe', // or 'tfjs',
-                    modelType: 'full',
+                    if (topFingerPoints.every(isclosed)) {
+                        this.isHandClosed = true
+                    } else {
+                        this.isHandClosed = false
+                    }
                 }
-                const detector = await handPoseDetection.createDetector(
-                    model,
-                    detectorConfig
-                )
-
-                const video = document.getElementById('video')
-                await detector.estimateHands(video)
+            }
+        },
+        handleCursor() {
+            if (this.isHandClosed) {
+                document.getElementById(
+                    'cursor'
+                ).style.backgroundImage = `url(${cursorClick})`
+            } else {
+                document.getElementById(
+                    'cursor'
+                ).style.backgroundImage = `url(${cursor})`
+            }
+        },
+        handleClick() {
+            document.querySelector('button').style.background =
+                '#' + Math.floor(Math.random() * 16777215).toString(16)
+        },
+    },
+    watch: {
+        isHandClosed: function (val) {
+            if (val) {
+                document
+                    .elementFromPoint(this.mousePosX, this.mousePosY)
+                    .click()
             }
         },
     },
 }
 </script>
 <style lang="scss">
+.container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 .Home {
     position: relative;
     height: 100vh;
@@ -146,17 +189,20 @@ body {
     height: 100vh;
 }
 
-#div1 {
-    width: 100px;
-    height: 100px;
-    background: green;
+#cursor {
+    width: 200px;
+    height: 200px;
     position: absolute;
     top: 50vh;
     left: 50vw;
-    transform: translate(-50%, 50%);
+    z-index: 2;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 button {
+    width: 500px;
+    height: 500px;
     position: absolute;
     top: 20vh;
     left: 20vw;
