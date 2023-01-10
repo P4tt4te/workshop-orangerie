@@ -41,6 +41,7 @@
             :currentQuestion="currentQuestion"
             @revealPoi="revealPoi"
         />
+        <p>{{ currentSubtitles }}</p>
     </div>
 </template>
 
@@ -65,6 +66,9 @@ export default {
             audio: null,
             isComplete: false,
             goodAnswers: [],
+            subtitles: null,
+            currentSubtitles: null,
+            questionId: null,
         }
     },
     created() {
@@ -79,9 +83,16 @@ export default {
             this.isQuizActive = true
             this.currentQuestion = this.portrait.questions[index]
         },
-        revealPoi(question) {
+        async revealPoi(question) {
             this.portrait.questions[question.id].isAnswered = true
             this.isQuizActive = false
+            this.questionId = question.id
+
+            this.subtitles = await import(
+                `@/assets/paintings/painting-${this.portrait.id}/subtitles/${this.questionId}.json`
+            ).then((module) => {
+                return module.default
+            })
 
             this.clearAudio()
             this.audio = new Audio(
@@ -115,6 +126,20 @@ export default {
                 this.audio = null
             }
         },
+    },
+    mounted() {
+        setInterval(() => {
+            if (this.audio) {
+                this.subtitles.forEach((s) => {
+                    if (
+                        this.audio.currentTime > s.start &&
+                        this.audio.currentTime < s.end
+                    ) {
+                        this.currentSubtitles = s.text
+                    }
+                })
+            }
+        }, 100)
     },
     beforeDestroy() {
         this.clearAudio()
