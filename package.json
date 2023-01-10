@@ -8,6 +8,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1640029074",
+    "@mediapipe/control_utils": "^0.6.1629159505",
+    "@mediapipe/drawing_utils": "^0.3.1620248257",
+    "@mediapipe/hands": "^0.4.1646424915",
+    "@mediapipe/holistic": "^0.5.1635989137",
+    "@mediapipe/tasks-vision": "^0.1.0-alpha-1",
+    "@nut-tree/nut-js": "^2.3.0",
+    "@tensorflow-models/hand-pose-detection": "^2.0.0",
+    "@tensorflow-models/handpose": "^0.0.7",
     "gsap": "^3.5.1",
     "swiper-vue2": "^1.0.10",
     "vue": "^2.7.7",
