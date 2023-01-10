@@ -42,6 +42,9 @@ export default {
             this.dragMoveEvent(fakeEvent)
         })
     },
+    beforeUnmount() {
+        bus.$off()
+    },
     methods: {
         initDrag() {
             interact('.arrowCircle').draggable({
@@ -86,7 +89,10 @@ export default {
             arrowCircleElement.setAttribute('data-x', 0)
         },
         handOnSlider(value) {
-            if (value.status === true) {
+            if (
+                value.status === true &&
+                document.querySelector('.Slidebutton')
+            ) {
                 let objRect = document
                     .querySelector('.Slidebutton')
                     .getBoundingClientRect()

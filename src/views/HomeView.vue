@@ -1,7 +1,7 @@
 <template>
     <main class="Home">
-        <CameraComponent />
         <Experience />
+        <CameraComponent />
     </main>
 </template>
 
