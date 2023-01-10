@@ -22,11 +22,17 @@
                 <p class="item__date">{{ portrait.date }}</p>
             </div>
         </div>
+        <SlideButton name="Démarrer l'expérience" />
     </div>
 </template>
 
 <script>
+import SlideButton from '@/components/SlideButton.vue'
+
 export default {
+    components: {
+        SlideButton,
+    },
     props: {
         portraits: Array,
     },

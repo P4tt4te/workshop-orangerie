@@ -16,7 +16,6 @@
 
 <script>
 import portraits from '@/assets/data/portraits.json'
-
 import Previews from '@/components/Previews.vue'
 import Carousel from '@/components/Carousel.vue'
 

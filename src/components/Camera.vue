@@ -110,9 +110,9 @@ export default {
                 }
                 this.mousePosY = newMousePosY
                 document.getElementById('cursor').style.top =
-                    this.mousePosY - 100 + 'px'
+                    this.mousePosY - 50 + 'px'
                 document.getElementById('cursor').style.left =
-                    this.mousePosX - 50 + 'px'
+                    this.mousePosX - 25 + 'px'
             }
         },
         handGesture(results) {
@@ -176,9 +176,10 @@ export default {
 }
 
 #cursor {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     position: absolute;
+    z-index: 10;
     top: 50vh;
     left: 50vw;
     z-index: 2;
