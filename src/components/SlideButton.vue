@@ -28,18 +28,13 @@ export default {
     },
     created() {
         bus.$on('isHandClosed', (value) => {
-            console.log(value)
             this.handOnSlider(value)
         })
         bus.$on('sendHandPositions', (value) => {
-            console.log('sendHandPositions')
-            console.log(value)
             let arrowCircleElement =
                 document.getElementsByClassName('arrowCircle')[0]
-            console.log(arrowCircleElement)
             let objRect = arrowCircleElement.getBoundingClientRect()
             let dx = value.x - objRect.x
-            console.log(dx)
             let fakeEvent = {
                 target: arrowCircleElement,
                 dx: dx,
@@ -52,11 +47,13 @@ export default {
             interact('.arrowCircle').draggable({
                 startAxis: 'x',
                 lockAxis: 'x',
+                inertia: true,
                 listeners: {
                     start(event) {
                         console.log(event.type, event.target)
                     },
                     move: this.dragMoveEvent,
+                    end: this.replaceCircle,
                 },
                 modifiers: [
                     interact.modifiers.restrict({
@@ -76,39 +73,44 @@ export default {
             if (x >= 308) {
                 x = 308
             }
-
+            target.style.transition = null
             target.style.transform = `translateX(${x}px)`
 
             target.setAttribute('data-x', x)
+        },
+        replaceCircle() {
+            let arrowCircleElement =
+                document.getElementsByClassName('arrowCircle')[0]
+            arrowCircleElement.style.transition = `transform 0.4s ease-in-out`
+            arrowCircleElement.style.transform = `translateX(0px)`
+            arrowCircleElement.setAttribute('data-x', 0)
         },
         handOnSlider(value) {
             if (value.status === true) {
                 let objRect = document
                     .querySelector('.Slidebutton')
                     .getBoundingClientRect()
-                console.log(objRect)
                 if (
                     value.x > objRect.x - 20 &&
                     value.x <= objRect.x + 40 &&
                     value.y > objRect.y - 20 &&
                     value.y <= objRect.y + 40
                 ) {
-                    console.log('on est dessus !!!')
                     this.holdStatus = true
                     this.holdIntervalStatus = true
                     this.holdInterval = setInterval(this.holdDrag, 50)
                 } else {
                     if (this.holdStatus) {
-                        console.log('cleartrue')
                         clearInterval(this.holdInterval)
+                        this.replaceCircle()
                     }
                     this.holdStatus = false
                 }
             } else {
                 if (this.holdStatus) {
-                    console.log('clear')
                     clearInterval(this.holdInterval)
                     this.holdStatus = false
+                    this.replaceCircle()
                 }
             }
         },
@@ -137,5 +139,6 @@ export default {
 .arrowCircle {
     width: 39px;
     height: 39px;
+    transform: translateX(0px);
 }
 </style>

@@ -153,7 +153,6 @@ export default {
             }
         },
         sendEvent(value) {
-            console.log(bus)
             bus.$emit('isHandClosed', {
                 status: value,
                 x: this.mousePosX,
