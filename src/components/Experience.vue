@@ -48,5 +48,6 @@ export default {
 .Experience {
     height: 100%;
     width: 100%;
+    background-color: transparent;
 }
 </style>

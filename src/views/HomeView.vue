@@ -1,8 +1,6 @@
 <template>
-    <fragment>
-        <main class="Home">
-            <Experience />
-        </main>
+    <main class="Home">
+        <Experience />
         <div class="container">
             <video
                 class="input_video"
@@ -11,25 +9,22 @@
                 width="100%"
                 height="100%"
             ></video>
+
             <canvas
                 class="output_canvas"
                 ref="output_canvas"
                 :width="width"
                 :height="height"
             ></canvas>
-            <div id="div1"></div>
-            <button>coucou</button>
+            <div id="cursor"></div>
         </div>
-    </fragment>
+    </main>
 </template>
 
 <script>
 import Experience from '@/components/Experience.vue'
-import '@tensorflow/tfjs-backend-cpu'
-import '@tensorflow/tfjs-backend-webgl'
 import { Hands } from '@mediapipe/hands'
 import { Camera } from '@mediapipe/camera_utils'
-
 import cursor from '../assets/cursor.svg'
 import cursorClick from '../assets/cursor-click.svg'
 
@@ -70,7 +65,6 @@ export default {
                     return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
                 },
             })
-
             hands.setOptions({
                 maxNumHands: 1,
                 minDetectionConfidence: 0.5,
@@ -79,7 +73,6 @@ export default {
                 selfieMode: true,
             })
             hands.onResults(this.onResults)
-
             const camera = new Camera(this.inputVideo, {
                 onFrame: async () => {
                     await hands.send({ image: this.inputVideo })
@@ -128,7 +121,6 @@ export default {
                     ]
                     const isclosed = (currentValue) =>
                         currentValue.y > this.hand[0].y
-
                     if (topFingerPoints.every(isclosed)) {
                         this.isHandClosed = true
                     } else {
@@ -147,11 +139,7 @@ export default {
                     'cursor'
                 ).style.backgroundImage = `url(${cursor})`
             }
-        },
-        handleClick() {
-            document.querySelector('button').style.background =
-                '#' + Math.floor(Math.random() * 16777215).toString(16)
-        },
+        }
     },
     watch: {
         isHandClosed: function (val) {
@@ -164,47 +152,38 @@ export default {
     },
 }
 </script>
-<style lang="scss">
-.container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
 
+<style lang="scss">
 .Home {
     position: relative;
     height: 100vh;
 }
 
-body {
-    margin: 0;
+.container {
+    position: fixed;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
+
 .input_video {
     display: none;
 }
 .output_canvas {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 #cursor {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     position: absolute;
     top: 50vh;
     left: 50vw;
     z-index: 2;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-button {
-    width: 500px;
-    height: 500px;
-    position: absolute;
-    top: 20vh;
-    left: 20vw;
 }
 </style>
