@@ -10,6 +10,7 @@
 </template>
 <script>
 import interact from 'interactjs'
+import { bus } from '../main'
 
 export default {
     props: {
@@ -17,6 +18,11 @@ export default {
     },
     mounted() {
         this.initDrag()
+    },
+    created() {
+        bus.$on('isHandClosed', (value) => {
+            console.log('SlideButtonTesting :' + value)
+        })
     },
     methods: {
         initDrag() {

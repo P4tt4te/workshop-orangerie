@@ -17,11 +17,16 @@
                 />
             </div>
         </div>
+        <SlideButton name="Démarrer l'expérience" />
     </div>
 </template>
 
 <script>
+import SlideButton from './SlideButton.vue'
 export default {
+    components: {
+        SlideButton,
+    },
     props: {
         portraits: Array,
     },

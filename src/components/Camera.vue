@@ -23,6 +23,7 @@ import { Hands } from '@mediapipe/hands'
 import { Camera } from '@mediapipe/camera_utils'
 import cursor from '../assets/cursor.svg'
 import cursorClick from '../assets/cursor-click.svg'
+import { bus } from '../main'
 
 export default {
     data: function () {
@@ -112,7 +113,7 @@ export default {
                 document.getElementById('cursor').style.top =
                     this.mousePosY - 50 + 'px'
                 document.getElementById('cursor').style.left =
-                    this.mousePosX - 25  + 'px'
+                    this.mousePosX - 25 + 'px'
             }
         },
         handGesture(results) {
@@ -145,13 +146,20 @@ export default {
                 ).style.backgroundImage = `url(${cursor})`
             }
         },
+        sendEvent(value) {
+            console.log(bus)
+            bus.$emit('isHandClosed', value)
+        },
     },
     watch: {
         isHandClosed: function (val) {
             if (val) {
+                this.sendEvent(true)
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
+            } else {
+                this.sendEvent(false)
             }
         },
     },

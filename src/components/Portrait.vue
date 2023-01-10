@@ -47,6 +47,7 @@
 <script>
 import Quiz from '@/components/Quiz.vue'
 import PaintHole from '@/components/PaintHole.vue'
+import { bus } from '../main'
 
 export default {
     components: {
