@@ -148,7 +148,11 @@ export default {
         },
         sendEvent(value) {
             console.log(bus)
-            bus.$emit('isHandClosed', value)
+            bus.$emit('isHandClosed', {
+                status: value,
+                x: this.mousePosX,
+                y: this.mousePosY,
+            })
         },
     },
     watch: {
@@ -161,7 +165,7 @@ export default {
             } else {
                 this.sendEvent(false)
             }
-        },
+        }
     },
 }
 </script>

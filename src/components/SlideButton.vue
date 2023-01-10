@@ -13,6 +13,12 @@ import interact from 'interactjs'
 import { bus } from '../main'
 
 export default {
+    data: function () {
+        return {
+            holdStatus: false,
+            holdInterval: null,
+        }
+    },
     props: {
         name: String,
     },
@@ -21,7 +27,8 @@ export default {
     },
     created() {
         bus.$on('isHandClosed', (value) => {
-            console.log('SlideButtonTesting :' + value)
+            console.log(value)
+            this.handOnSlider(value)
         })
     },
     methods: {
@@ -58,12 +65,47 @@ export default {
 
             target.setAttribute('data-x', x)
         },
+        handOnSlider(value) {
+            if (value.status === true) {
+                let objRect = document
+                    .querySelector('.Slidebutton')
+                    .getBoundingClientRect()
+                console.log(objRect)
+                if (
+                    value.x > objRect.x - 20 &&
+                    value.x <= objRect.x + 40 &&
+                    value.y > objRect.y - 20 &&
+                    value.y <= objRect.y + 40
+                ) {
+                    console.log('on est dessus !!!')
+                    this.holdStatus = true
+                    this.holdInterval = setInterval(this.holdDrag, 500)
+                } else {
+                    if (this.holdStatus) {
+                        console.log('cleartrue')
+                        clearInterval(this.holdInterval)
+                    }
+                    this.holdStatus = false
+                }
+            } else {
+                if (this.holdStatus) {
+                    console.log('clear')
+                    clearInterval(this.holdInterval)
+                    this.holdStatus = false
+                }
+            }
+        },
+        holdDrag() {
+            console.log('holdDrag')
+        },
     },
 }
 </script>
 <style lang="scss" scoped>
 .Slidebutton {
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
