@@ -17,6 +17,7 @@ export default {
         return {
             holdStatus: false,
             holdInterval: null,
+            holdIntervalStatus: false,
         }
     },
     props: {
@@ -29,6 +30,21 @@ export default {
         bus.$on('isHandClosed', (value) => {
             console.log(value)
             this.handOnSlider(value)
+        })
+        bus.$on('sendHandPositions', (value) => {
+            console.log('sendHandPositions')
+            console.log(value)
+            let arrowCircleElement =
+                document.getElementsByClassName('arrowCircle')[0]
+            console.log(arrowCircleElement)
+            let objRect = arrowCircleElement.getBoundingClientRect()
+            let dx = value.x - objRect.x
+            console.log(dx)
+            let fakeEvent = {
+                target: arrowCircleElement,
+                dx: dx,
+            }
+            this.dragMoveEvent(fakeEvent)
         })
     },
     methods: {
@@ -79,7 +95,8 @@ export default {
                 ) {
                     console.log('on est dessus !!!')
                     this.holdStatus = true
-                    this.holdInterval = setInterval(this.holdDrag, 500)
+                    this.holdIntervalStatus = true
+                    this.holdInterval = setInterval(this.holdDrag, 50)
                 } else {
                     if (this.holdStatus) {
                         console.log('cleartrue')
@@ -96,7 +113,7 @@ export default {
             }
         },
         holdDrag() {
-            console.log('holdDrag')
+            bus.$emit('getHandPositions')
         },
     },
 }

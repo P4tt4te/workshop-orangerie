@@ -56,6 +56,12 @@ export default {
         canvasElement.height = innerHeight
         this.init()
     },
+    created() {
+        bus.$on('getHandPositions', () => {
+            let positions = this.getPosition()
+            bus.$emit('sendHandPositions', positions)
+        })
+    },
     methods: {
         init() {
             const hands = new Hands({
@@ -154,6 +160,12 @@ export default {
                 y: this.mousePosY,
             })
         },
+        getPosition() {
+            return {
+                x: this.mousePosX,
+                y: this.mousePosY,
+            }
+        },
     },
     watch: {
         isHandClosed: function (val) {
@@ -165,7 +177,7 @@ export default {
             } else {
                 this.sendEvent(false)
             }
-        }
+        },
     },
 }
 </script>
