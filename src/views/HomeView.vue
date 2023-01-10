@@ -1,6 +1,5 @@
 <template>
-    <main class="Home">
-        <Experience />
+    <div>
         <div class="container">
             <video
                 class="input_video"
@@ -18,7 +17,10 @@
             ></canvas>
             <div id="cursor"></div>
         </div>
-    </main>
+        <main class="Home">
+            <Experience />
+        </main>
+    </div>
 </template>
 
 <script>
@@ -39,7 +41,12 @@ export default {
             ctx: null,
             width: null,
             height: null,
-            hand: null,
+            hand: [
+                {
+                    x: 0,
+                    y: 0,
+                },
+            ],
             mousePosX: 0,
             mousePosY: 0,
             isHandClosed: false,
@@ -102,12 +109,20 @@ export default {
                 for (const landmarks of results.multiHandLandmarks) {
                     this.hand = [landmarks[9]]
                 }
-                this.mousePosX = this.hand[0].x * innerWidth
-                this.mousePosY = this.hand[0].y * innerHeight
+                let newMousePosX = 0
+                let newMousePosY = 0
+                if (this.hand[0].x !== null && innerWidth !== null) {
+                    newMousePosX = this.hand[0].x * innerWidth
+                }
+                this.mousePosX = newMousePosX
+                if (this.hand[0].y !== null && innerHeight !== null) {
+                    newMousePosY = this.hand[0].y * innerHeight
+                }
+                this.mousePosY = newMousePosY
                 document.getElementById('cursor').style.top =
-                    this.mousePosY - 200 + 'px'
+                    this.mousePosY - 100 + 'px'
                 document.getElementById('cursor').style.left =
-                    this.mousePosX - 100 + 'px'
+                    this.mousePosX - 50 + 'px'
             }
         },
         handGesture(results) {
@@ -139,7 +154,7 @@ export default {
                     'cursor'
                 ).style.backgroundImage = `url(${cursor})`
             }
-        }
+        },
     },
     watch: {
         isHandClosed: function (val) {

@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 .Carousel {
     position: absolute;
-    background-color: $white;
+    background-color: transparent;
     width: 100%;
     height: 100%;
     display: flex;
