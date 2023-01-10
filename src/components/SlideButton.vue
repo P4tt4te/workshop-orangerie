@@ -9,9 +9,49 @@
     </div>
 </template>
 <script>
+import interact from 'interactjs'
+
 export default {
     props: {
         name: String,
+    },
+    mounted() {
+        this.initDrag()
+    },
+    methods: {
+        initDrag() {
+            interact('.arrowCircle').draggable({
+                startAxis: 'x',
+                lockAxis: 'x',
+                listeners: {
+                    start(event) {
+                        console.log(event.type, event.target)
+                    },
+                    move: this.dragMoveEvent,
+                },
+                modifiers: [
+                    interact.modifiers.restrict({
+                        restriction: 'parent',
+                        endOnly: true,
+                    }),
+                ],
+            })
+        },
+        dragMoveEvent(event) {
+            let target = event.target
+
+            let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+            if (x <= 0) {
+                x = 0
+            }
+            if (x >= 308) {
+                x = 308
+            }
+
+            target.style.transform = `translateX(${x}px)`
+
+            target.setAttribute('data-x', x)
+        },
     },
 }
 </script>
@@ -19,23 +59,18 @@ export default {
 .Slidebutton {
     position: relative;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
-    padding: 2rem;
+    padding-right: 2rem;
+    padding-left: 1rem;
     width: 370px;
     height: 59px;
     border: 2px solid white;
     border-radius: 100px;
-
-    span : {
-        color: white;
-    }
+    font-family: 'basierCircleMono-regular';
 }
 .arrowCircle {
     width: 39px;
     height: 39px;
-    position: absolute;
-    top: 8px;
-    left: 6px;
 }
 </style>

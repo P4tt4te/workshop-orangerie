@@ -112,7 +112,7 @@ export default {
                 document.getElementById('cursor').style.top =
                     this.mousePosY - 50 + 'px'
                 document.getElementById('cursor').style.left =
-                    this.mousePosX - 25 + 'px'
+                    this.mousePosX - 25  + 'px'
             }
         },
         handGesture(results) {
