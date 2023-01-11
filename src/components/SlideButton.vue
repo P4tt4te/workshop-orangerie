@@ -22,6 +22,7 @@ export default {
     },
     props: {
         name: String,
+        onValidate: Function,
     },
     mounted() {
         this.initDrag()
@@ -72,6 +73,11 @@ export default {
             let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
             if (x <= 0) {
                 x = 0
+            }
+            if (x >= 306) {
+                console.log('validé')
+                bus.$off()
+                this.onValidate()
             }
             if (x >= 308) {
                 x = 308
@@ -138,9 +144,11 @@ export default {
     padding-left: 1rem;
     width: 370px;
     height: 59px;
-    border: 2px solid white;
-    border-radius: 100px;
+    border: 0.05rem solid $white;
+    border-radius: 10rem;
     font-family: $mono;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
 }
 .arrowCircle {
     width: 39px;

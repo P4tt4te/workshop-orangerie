@@ -27,9 +27,27 @@
         <button class="start-button" @click="$emit('startExperience')">
             Démarrer l'expérience
         </button>
+        <SlideButton
+            name="Démarrer l'expérience"
+            :on-validate="startExperience"
+        />
     </section>
 </template>
+<script>
+import SlideButton from './SlideButton.vue'
 
+export default {
+    components: {
+        SlideButton,
+    },
+    methods: {
+        startExperience() {
+            console.log('yes')
+            this.$emit('startExperience')
+        },
+    },
+}
+</script>
 <style lang="scss">
 .SplashScreen {
     height: 100vh;

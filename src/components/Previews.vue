@@ -17,22 +17,15 @@
                 />
             </div>
         </div>
-        <SlideButton name="Démarrer l'expérience" />
     </div>
 </template>
-
 <script>
-import SlideButton from './SlideButton.vue'
 export default {
-    components: {
-        SlideButton,
-    },
     props: {
         portraits: Array,
     },
 }
 </script>
-
 <style lang="scss" scoped>
 .Previews {
     height: 100%;
@@ -59,7 +52,7 @@ export default {
         }
 
         &:hover {
-            opacity: .8;
+            opacity: 0.8;
             animation-play-state: paused;
             z-index: 10;
         }
