@@ -1,43 +1,55 @@
 <template>
     <section class="Experience">
-        <Previews
-            v-if="!isCarouselActive"
-            :portraits="portraits"
-            @showCarousel="showCarousel"
+        <SplashScreen
+            v-if="mode !== 'experience'"
+            @startExperience="startExperience"
         />
-        <Carousel
-            v-if="isCarouselActive"
+        <Previews
+            v-if="mode === 'experience' && !isPortraitActive"
             :portraits="portraits"
-            :currentIndex="currentIndex"
-            @closeCarousel="closeCarousel"
+            @showPortrait="showPortrait"
+        />
+        <Portrait
+            v-if="portrait && isPortraitActive"
+            :portrait="portrait"
+            @closePortrait="closePortrait"
         />
     </section>
 </template>
 
 <script>
 import portraits from '@/assets/data/portraits.json'
+
+import SplashScreen from '@/components/SplashScreen.vue'
 import Previews from '@/components/Previews.vue'
-import Carousel from '@/components/Carousel.vue'
+import Portrait from '@/components/Portrait.vue'
 
 export default {
     components: {
+        SplashScreen,
         Previews,
-        Carousel,
+        Portrait,
     },
     data() {
         return {
+            mode: 'splash',
             currentIndex: 0,
-            isCarouselActive: false,
+            isSplashScreenVisible: true,
+            isPortraitActive: false,
+            portrait: null,
             portraits,
         }
     },
     methods: {
-        showCarousel(index) {
-            this.isCarouselActive = true
-            this.currentIndex = index
+        startExperience() {
+            this.mode = 'experience'
         },
-        closeCarousel() {
-            this.isCarouselActive = false
+        showPortrait(index) {
+            this.isPortraitActive = true
+            this.portrait = this.portraits[index]
+        },
+        closePortrait() {
+            this.isPortraitActive = false
         },
     },
 }
