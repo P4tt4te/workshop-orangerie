@@ -1,6 +1,6 @@
 <template>
     <div class="Quiz">
-        <div class="Quiz__meta">
+        <div class="Quiz__meta" ref="meta">
             <small class="Quiz__label"
                 >Question n°{{ currentQuestion.id + 1 }}</small
             >
@@ -11,6 +11,7 @@
                 class="Quiz__button"
                 @click="selectOption($event)"
                 v-for="(option, index) in currentQuestion.options"
+                ref="button"
             >
                 <div class="icon">{{ letters[index] }}</div>
                 <div class="text">{{ option }}</div>
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+
 export default {
     props: {
         currentQuestion: Object,
@@ -29,6 +32,32 @@ export default {
             letters: ['A', 'B', 'C'],
             selectedOption: '',
         }
+    },
+    mounted() {
+        const tl = gsap.timeline({
+            defaults: {
+                ease: 'Power4.easeOut',
+            },
+        })
+        tl.from(this.$refs.meta, {
+            duration: 2,
+            y: '-50%',
+            autoAlpha: 0,
+        })
+        tl.fromTo(
+            this.$refs.button,
+            {
+                autoAlpha: 0,
+                y: 50,
+                x: 50,
+            },
+            {
+                autoAlpha: 1,
+                y: 0,
+                x: 0,
+                stagger: 0.5,
+            }
+        )
     },
     methods: {
         selectOption(event) {

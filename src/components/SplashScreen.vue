@@ -1,6 +1,6 @@
 <template>
     <section class="SplashScreen">
-        <header class="header">
+        <header class="header" ref="header">
             <div class="header__logo">
                 <img src="@/assets/svg/gobelins-logo.svg" />
             </div>
@@ -9,7 +9,7 @@
             </div>
         </header>
         <div class="content">
-            <div class="content__logo">
+            <div class="content__logo" ref="contentLogo">
                 <img
                     src="@/assets/svg/app-logo.svg"
                     alt="Les portraits de Soutine"
@@ -17,7 +17,11 @@
             </div>
         </div>
         <div class="background">
-            <div class="background__portrait" v-for="n in 5">
+            <div
+                class="background__portrait"
+                v-for="n in 5"
+                ref="backgroundPortrait"
+            >
                 <img
                     :src="'src/assets/img/splash/' + (n - 1) + '.jpg'"
                     alt=""
@@ -27,24 +31,87 @@
         <SlideButton
             name="Démarrer l'expérience"
             :on-validate="startExperience"
+            ref="startButton"
+            :class="{ 'SlideButton--disabled': isButtonDisabled }"
         />
     </section>
 </template>
+
 <script>
 import SlideButton from './SlideButton.vue'
+
+import gsap from 'gsap'
 
 export default {
     components: {
         SlideButton,
     },
+    data() {
+        return {
+            isButtonDisabled: false,
+        }
+    },
+    mounted() {
+        const tl = gsap.timeline({
+            defaults: {
+                ease: 'Power4.easeOut',
+            },
+        })
+
+        tl.from(this.$refs.header, {
+            delay: 1,
+            duration: 2,
+            y: -50,
+            autoAlpha: 0,
+        })
+        tl.from(this.$refs.backgroundPortrait, {
+            duration: 2,
+            top: '50%',
+            autoAlpha: 0,
+        })
+        tl.from(this.$refs.contentLogo, {
+            delay: -1,
+            autoAlpha: 0,
+            y: 50,
+            rotate: -3,
+            duration: 2,
+        })
+
+        let instance
+
+        this.$on('animOut', () => {
+            console.log('fire')
+
+            // tl.to(this.$refs.header, {
+            //     duration: 1,
+            //     y: -50,
+            //     autoAlpha: 0,
+            // })
+            // tl.to(this.$refs.contentLogo, {
+            //     duration: 1,
+            //     autoAlpha: 0,
+            // })
+            // tl.to(this.$refs.backgroundPortrait, {
+            //     duration: 2,
+            //     top: '50%',
+            //     autoAlpha: 0,
+            // })
+        })
+    },
     methods: {
         startExperience() {
-            console.log('yes')
-            this.$emit('startExperience')
+            this.isButtonDisabled = true
+            console.log('test')
+            this.$emit('animOut')
+
+            setTimeout(() => {
+                this.$emit('startExperience')
+            }, 2000)
         },
     },
 }
 </script>
+
 <style lang="scss">
 .SplashScreen {
     height: 100vh;

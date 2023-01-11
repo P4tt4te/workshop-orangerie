@@ -174,6 +174,7 @@ export default {
     },
 }
 </script>
+
 <style lang="scss">
 .Home {
     position: relative;
