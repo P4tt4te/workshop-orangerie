@@ -110,7 +110,7 @@ export default {
                 ) {
                     this.holdStatus = true
                     this.holdIntervalStatus = true
-                    this.holdInterval = setInterval(this.holdDrag, 50)
+                    this.holdInterval = setInterval(this.holdDrag, 10)
                 } else {
                     if (this.holdStatus) {
                         clearInterval(this.holdInterval)

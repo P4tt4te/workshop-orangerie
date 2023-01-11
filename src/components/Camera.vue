@@ -117,9 +117,9 @@ export default {
                 }
                 this.mousePosY = newMousePosY
                 document.getElementById('cursor').style.top =
-                    this.mousePosY - 50 + 'px'
+                    this.mousePosY + 'px'
                 document.getElementById('cursor').style.left =
-                    this.mousePosX - 25 + 'px'
+                    this.mousePosX + 'px'
             }
         },
         handGesture(results) {
@@ -211,5 +211,6 @@ export default {
     z-index: 10;
     background-repeat: no-repeat;
     background-size: cover;
+    user-select: none;
 }
 </style>
