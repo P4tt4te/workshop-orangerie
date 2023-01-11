@@ -1,5 +1,5 @@
 <template>
-    <h3>{{ currentSubtitles }}</h3>
+    <h3 class="subtitles">{{ currentSubtitles }}</h3>
 </template>
 
 <script>
@@ -10,4 +10,14 @@ export default {
     },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.subtitles {
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    font-size: 21px;
+}
+</style>

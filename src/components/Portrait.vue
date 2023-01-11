@@ -41,7 +41,7 @@
             :currentQuestion="currentQuestion"
             @revealPoi="revealPoi"
         />
-        <p>{{ currentSubtitles }}</p>
+        <Subtitles :currentSubtitles="currentSubtitles" />
     </div>
 </template>
 
@@ -49,11 +49,13 @@
 import Quiz from '@/components/Quiz.vue'
 import PaintHole from '@/components/PaintHole.vue'
 import { bus } from '../main'
+import Subtitles from '@/components/Subtitles.vue'
 
 export default {
     components: {
         Quiz,
         PaintHole,
+        Subtitles,
     },
     props: {
         portrait: Object,
@@ -103,13 +105,21 @@ export default {
             this.portrait.questions.forEach((answer) => {
                 this.goodAnswers.push(answer)
             })
+            this.audio.addEventListener('ended', async () => {
+                this.currentSubtitles = null
+            })
             if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
-                this.audio.addEventListener('ended', () => {
+                this.audio.addEventListener('ended', async () => {
                     this.audio.currentTime = 0
                     this.clearAudio()
                     this.audio = new Audio(
                         `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
                     )
+                    this.subtitles = await import(
+                        `@/assets/paintings/painting-${this.portrait.id}/subtitles/complete.json`
+                    ).then((module) => {
+                        return module.default
+                    })
                     setTimeout(() => {
                         this.isComplete = true
                         this.audio.play()
@@ -124,6 +134,7 @@ export default {
             if (this.audio) {
                 this.audio.pause()
                 this.audio = null
+                this.currentSubtitles = null
             }
         },
     },
