@@ -125,18 +125,17 @@ export default {
         handGesture(results) {
             if (results.multiHandLandmarks) {
                 for (const landmarks of results.multiHandLandmarks) {
-                    const topFingerPoints = [
-                        landmarks[8],
-                        landmarks[12],
-                        landmarks[16],
-                        landmarks[20],
-                    ]
-                    const isclosed = (currentValue) =>
-                        currentValue.y > this.hand[0].y
-                    if (topFingerPoints.every(isclosed)) {
-                        this.isHandClosed = true
-                    } else {
+                    var A = landmarks[12]
+                    var B = landmarks[9]
+                    var M = landmarks[0]
+
+                    var AB = B.x - A.x + (B.y - A.y)
+                    var AM = M.x - A.x + (M.y - A.y)
+
+                    if (Math.sign(AB) === Math.sign(AM)) {
                         this.isHandClosed = false
+                    } else {
+                        this.isHandClosed = true
                     }
                 }
             }
