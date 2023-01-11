@@ -6,9 +6,9 @@
         "image": "image1.jpeg",
         "questions": [
             {
-                "question": "Que porte le jeune garçon sur la tête\u200B?",
+                "question": "Selon vous, quel couvre-chef est caractéristique d’un pâtissier du début du 20ème siècle ?",
                 "id": 0,
-                "options": ["Une toque", "Un bonnet", "Un haut-de-forme"],
+                "options": ["Un béret", "Une toque", "Un haut-de-forme"],
                 "answer": "Une toque",
                 "isAnswered": false,
                 "coords": {
@@ -17,9 +17,9 @@
                 }
             },
             {
-                "question": "Quelle partie du visage dénote parmi le reste\u200B?",
+                "question": "Albert Barnes s’est écrié “Mais c’est une pêche!” en détaillant une partie du tableau. Laquelle?",
                 "id": 1,
-                "options": ["Les lèvres", "Les yeux", "L'oreille"],
+                "options": ["L'oreille", "Le nez", "Les yeux"],
                 "answer": "L'oreille",
                 "isAnswered": false,
                 "coords": {
@@ -28,10 +28,10 @@
                 }
             },
             {
-                "question": "Quel objet tient le garçon entre ses mains\u200B?",
+                "question": "De quelle couleur est le chiffon que tient le pâtissier ? ",
                 "id": 2,
-                "options": ["Un morceau de pain", "Un chiffon", "Une fleur"],
-                "answer": "Un chiffon",
+                "options": ["Bleu", "Jaune", "Rouge"],
+                "answer": "Rouge",
                 "isAnswered": false,
                 "coords": {
                     "x": 22.5,
@@ -49,8 +49,8 @@
             {
                 "question": "Rédiger une question ici",
                 "id": 0,
-                "options": ["Une toque", "Un bonnet", "Un haut-de-forme"],
-                "answer": "Une toque",
+                "options": ["A", "B", "B"],
+                "answer": "A",
                 "isAnswered": false,
                 "coords": {
                     "x": 32,
@@ -58,14 +58,10 @@
                 }
             },
             {
-                "question": "Rédiger une question ici",
+                "question": "Quelle partie du corps Soutine a-t-il choisi d’exagérer dans sa représentation ?",
                 "id": 1,
-                "options": [
-                    "Il est étroit",
-                    "Il est griffé",
-                    "Il est ensanglanté"
-                ],
-                "answer": "Il est étroit",
+                "options": ["La poitrine", "Le cou", "Les épaules"],
+                "answer": "Les épaules",
                 "isAnswered": false,
                 "coords": {
                     "x": 20.5,
@@ -73,10 +69,10 @@
                 }
             },
             {
-                "question": "Rédiger une question ici",
+                "question": "Sur quel meuble s’appuie la fiancée peinte par Soutine ?",
                 "id": 2,
-                "options": ["Un morceau de pain", "Un chiffon", "Un couteau"],
-                "answer": "Un chiffon",
+                "options": ["Une commode", "Une coiffeuse", "Une chaise"],
+                "answer": "Une chaise",
                 "isAnswered": false,
                 "coords": {
                     "x": 7,
@@ -92,10 +88,14 @@
         "image": "image3.jpeg",
         "questions": [
             {
-                "question": "Rédiger une question ici",
+                "question": "Quelle posture arbore l’enfant de chœur ?",
                 "id": 0,
-                "options": ["Une toque", "Un bonnet", "Un haut-de-forme"],
-                "answer": "Une toque",
+                "options": [
+                    "Il a les mains jointes",
+                    "Il croise les bras",
+                    "Il a les bras le long du corps"
+                ],
+                "answer": "Il a les mains jointes",
                 "isAnswered": false,
                 "coords": {
                     "x": 30.5,
@@ -103,14 +103,10 @@
                 }
             },
             {
-                "question": "Rédiger une question ici",
+                "question": "Quelle expression semble revêtir l’enfant de chœur ?",
                 "id": 1,
-                "options": [
-                    "Il est étroit",
-                    "Il est griffé",
-                    "Il est ensanglanté"
-                ],
-                "answer": "Il est étroit",
+                "options": ["La tristesse", "La joie", "Les deux"],
+                "answer": "Les deux",
                 "isAnswered": false,
                 "coords": {
                     "x": 25,
