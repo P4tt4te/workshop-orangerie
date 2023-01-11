@@ -127,6 +127,31 @@ export default {
             pColor.on('change', (ev) => {
                 $app.style.borderColor = ev.value
             })
+
+            pane.addSeparator()
+            const pFull = pane.addButton({
+                title: 'full screen',
+            })
+
+            function toggleFullScreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen()
+                } else if (document.exitFullscreen) {
+                    document.exitFullscreen()
+                }
+            }
+
+            pFull.on('click', () => {
+                toggleFullScreen()
+            })
+
+            const pClose = pane.addButton({
+                title: 'close',
+            })
+
+            pClose.on('click', () => {
+                pane.dispose()
+            })
         },
         transform(params) {
             let home = document.getElementsByClassName('Home')[0]

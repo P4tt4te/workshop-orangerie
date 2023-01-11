@@ -18,6 +18,7 @@ export default {
             holdStatus: false,
             holdInterval: null,
             holdIntervalStatus: false,
+            validateStatus: false,
         }
     },
     props: {
@@ -75,9 +76,11 @@ export default {
                 x = 0
             }
             if (x >= 306) {
-                console.log('validé')
                 bus.$off()
-                this.onValidate()
+                if (this.validateStatus != true) {
+                    this.onValidate()
+                }
+                this.validateStatus = true
             }
             if (x >= 308) {
                 x = 308
