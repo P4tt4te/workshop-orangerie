@@ -42,6 +42,7 @@ $size: 15vh;
     top: var(--top);
     left: var(--left);
     z-index: 10;
+    
     &.active .Sticker {
         transform: translate3d(
                 var(--left) - calc($size / 2),
@@ -51,6 +52,7 @@ $size: 15vh;
             scale(1) rotate(0deg);
         transition-delay: 0s;
         opacity: 1;
+
         .stickerFront {
             height: $size;
         }

@@ -7,6 +7,7 @@
         <div class="stickerBack"></div>
     </div>
 </template>
+
 <script>
 export default {
     props: {
@@ -16,6 +17,7 @@ export default {
     },
 }
 </script>
+
 <style lang="scss">
 $size: 15vh;
 
@@ -33,6 +35,7 @@ $size: 15vh;
     transition: 0.2s 0.2s;
     transform: translate3d(100px, 100px, 0) scale(1.5) rotate(-45deg);
     opacity: 0;
+    pointer-events: none;
 }
 
 .stickerBack,

@@ -6,7 +6,7 @@
         "image": "image1.jpeg",
         "questions": [
             {
-                "question": "Quelle est la nature du couvre-chef?",
+                "question": "Que porte le jeune garçon sur la tête\u200B?",
                 "id": 0,
                 "options": ["Une toque", "Un bonnet", "Un haut-de-forme"],
                 "answer": "Une toque",
@@ -17,14 +17,10 @@
                 }
             },
             {
-                "question": "Quelle est la particularité du cou?",
+                "question": "Quelle partie du visage dénote parmi le reste\u200B?",
                 "id": 1,
-                "options": [
-                    "Il est étroit",
-                    "Il est griffé",
-                    "Il est ensanglanté"
-                ],
-                "answer": "Il est étroit",
+                "options": ["Les lèvres", "Les yeux", "L'oreille"],
+                "answer": "L'oreille",
                 "isAnswered": false,
                 "coords": {
                     "x": 41,
@@ -32,9 +28,9 @@
                 }
             },
             {
-                "question": "Que tient le garçon?",
+                "question": "Quel objet tient le garçon entre ses mains\u200B?",
                 "id": 2,
-                "options": ["Un morceau de pain", "Un chiffon", "Un couteau"],
+                "options": ["Un morceau de pain", "Un chiffon", "Une fleur"],
                 "answer": "Un chiffon",
                 "isAnswered": false,
                 "coords": {
@@ -51,7 +47,7 @@
         "image": "image2.jpeg",
         "questions": [
             {
-                "question": "Quelle est la nature du couvre-chef?",
+                "question": "Rédiger une question ici",
                 "id": 0,
                 "options": ["Une toque", "Un bonnet", "Un haut-de-forme"],
                 "answer": "Une toque",
@@ -59,10 +55,10 @@
                 "coords": {
                     "x": 42,
                     "y": 0
-                } 
+                }
             },
             {
-                "question": "Quelle est la particularité du cou?",
+                "question": "Rédiger une question ici",
                 "id": 1,
                 "options": [
                     "Il est étroit",
@@ -77,7 +73,7 @@
                 }
             },
             {
-                "question": "Que tient le garçon?",
+                "question": "Rédiger une question ici",
                 "id": 2,
                 "options": ["Un morceau de pain", "Un chiffon", "Un couteau"],
                 "answer": "Un chiffon",
@@ -96,7 +92,7 @@
         "image": "image3.jpeg",
         "questions": [
             {
-                "question": "Quelle est la nature du couvre-chef?",
+                "question": "Rédiger une question ici",
                 "id": 0,
                 "options": ["Une toque", "Un bonnet", "Un haut-de-forme"],
                 "answer": "Une toque",
@@ -107,7 +103,7 @@
                 }
             },
             {
-                "question": "Quelle est la particularité du cou?",
+                "question": "Rédiger une question ici",
                 "id": 1,
                 "options": [
                     "Il est étroit",
@@ -122,7 +118,7 @@
                 }
             },
             {
-                "question": "Que tient le garçon?",
+                "question": "Rédiger une question ici",
                 "id": 2,
                 "options": ["Un morceau de pain", "Un chiffon", "Un couteau"],
                 "answer": "Un chiffon",
