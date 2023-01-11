@@ -123,7 +123,7 @@ export default {
                     setTimeout(() => {
                         this.isComplete = true
                         this.audio.play()
-                    }, 2000)
+                    }, 1000)
                 })
             }
         },
@@ -183,7 +183,7 @@ export default {
 
         .title {
             font-family: $serif;
-            font-size: 4rem;
+            font-size: 6rem;
             margin-top: 1rem;
             // font-family: $mono;
             // text-transform: uppercase;
