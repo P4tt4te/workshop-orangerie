@@ -1,25 +1,20 @@
 <template>
     <div class="Previews">
-        <h1 class="Previews__title">Portraits de Soutine</h1>
         <div class="Previews__wrapper">
             <div
                 class="item"
                 v-for="(portrait, index) in portraits"
                 :key="index"
-                @click="$emit('showCarousel', index)"
+                @click="$emit('showPortrait', index)"
             >
-                <div class="item__illus">
-                    <img
-                        :src="
-                            'src/assets/paintings/painting-' +
-                            portrait.id +
-                            '/image.jpeg'
-                        "
-                        alt=""
-                    />
-                </div>
-                <h2 class="item__title">{{ portrait.title }}</h2>
-                <p class="item__date">{{ portrait.date }}</p>
+                <img
+                    :src="
+                        'src/assets/paintings/painting-' +
+                        portrait.id +
+                        '/image.jpeg'
+                    "
+                    alt=""
+                />
             </div>
         </div>
     </div>
@@ -36,33 +31,32 @@ export default {
 <style lang="scss" scoped>
 .Previews {
     height: 100%;
-    text-align: center;
-    padding-top: 2rem;
-
-    &__title {
-        font-size: 8rem;
-        margin-bottom: 2rem;
-    }
-
-    &__wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
 
     .item {
-        border: 0.1rem solid $grey;
-        min-height: 30rem;
-        width: 20rem;
-        background-size: cover;
-        filter: grayscale(1);
+        width: 35rem;
+        opacity: 0.6;
+        position: absolute;
+        animation: orbit 8s linear infinite;
 
-        &:not(:last-child) {
-            margin-right: 2rem;
+        &:nth-child(1) {
+            top: 20%;
+            left: 30%;
+        }
+
+        &:nth-child(2) {
+            top: 30%;
+            left: 45%;
+        }
+
+        &:nth-child(3) {
+            top: 10%;
+            left: 60%;
         }
 
         &:hover {
-            filter: grayscale(0);
+            opacity: .8;
+            animation-play-state: paused;
+            z-index: 10;
         }
     }
 }

@@ -1,5 +1,16 @@
 <template>
-    <div class="Portrait">
+    <div class="Portrait wrap-resp">
+        <button class="Portrait__go-back" @click="$emit('closePortrait')">
+            [BOUTON RETOUR]
+        </button>
+        <div class="Portrait__overlay" v-if="isOverlayActive">
+            <div class="icon"></div>
+            <p>Pointez une zone abîmée pour tenter de la restaurer</p>
+        </div>
+        <header class="Portrait__meta" v-if="isComplete">
+            <p class="label">Vous avez restauré</p>
+            <h2 class="title">{{ portrait.title }}, {{ portrait.date }}</h2>
+        </header>
         <div class="Portrait__illus">
             <PaintHole
                 v-for="(poi, index) in portrait.questions"
@@ -23,23 +34,13 @@
                     portrait.id +
                     '/image.jpeg'
                 "
-                alt=""
             />
         </div>
-        <div class="Portrait__meta">
-            <h2 class="Portrait__title">{{ portrait.title }}</h2>
-            <p class="Portrait__date">{{ portrait.date }}</p>
-            <p class="Portrait__details">Huile sur toile</p>
-            <Quiz
-                v-if="isQuizActive"
-                :currentQuestion="currentQuestion"
-                @revealPoi="revealPoi"
-            />
-            <div v-if="isComplete">
-                <p>Merci de m'avoir entièrement restauré!</p>
-                <p>[Afficher la vidéo à la place de l'image]</p>
-            </div>
-        </div>
+        <Quiz
+            v-if="isQuizActive"
+            :currentQuestion="currentQuestion"
+            @revealPoi="revealPoi"
+        />
     </div>
 </template>
 
@@ -57,6 +58,7 @@ export default {
     },
     data() {
         return {
+            isOverlayActive: false,
             isQuizActive: false,
             currentQuestion: null,
             audio: null,
@@ -65,34 +67,31 @@ export default {
         }
     },
     created() {
-        bus.$on('slideChange', () => {
-            this.isQuizActive = false
-            this.clearAudio()
-        })
+        // bus.$on('slideChange', () => {
+        //     this.isQuizActive = false
+        //     this.clearAudio()
+        // })
     },
     methods: {
         startQuiz(index) {
+            this.clearAudio()
             this.isQuizActive = true
             this.currentQuestion = this.portrait.questions[index]
         },
         revealPoi(question) {
             this.portrait.questions[question.id].isAnswered = true
-            console.log(this.$refs.poi[question.id])
             this.isQuizActive = false
 
             this.clearAudio()
             this.audio = new Audio(
                 `src/assets/paintings/painting-${this.portrait.id}/audios/${question.id}.mp3`
             )
-            this.audio.load()
             this.audio.play()
 
             this.portrait.questions.forEach((answer) => {
                 this.goodAnswers.push(answer)
             })
             if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
-                this.isComplete = true
-
                 this.audio.addEventListener('ended', () => {
                     this.audio.currentTime = 0
                     this.clearAudio()
@@ -100,7 +99,7 @@ export default {
                         `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
                     )
                     setTimeout(() => {
-                        this.audio.load()
+                        this.isComplete = true
                         this.audio.play()
                     }, 2000)
                 })
@@ -124,13 +123,40 @@ export default {
 
 <style lang="scss">
 .Portrait {
-    border: 0.1rem solid $grey;
     height: 100%;
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &__meta {
+        position: absolute;
+        top: 6rem;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        text-align: center;
+        z-index: 20;
+
+        .label {
+            font-family: $mono;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .title {
+            font-family: $serif;
+            font-size: 4rem;
+            margin-top: 1rem;
+            // font-family: $mono;
+            // text-transform: uppercase;
+            // letter-spacing: 0.1rem;
+        }
+    }
 
     &__illus {
         position: relative;
+        height: 75%;
 
         img {
             object-fit: contain;
@@ -138,13 +164,11 @@ export default {
         }
     }
 
-    &__meta {
-        flex: 1;
-        padding: 5rem;
-    }
-
-    &__title {
-        font-size: 6rem;
+    &__go-back {
+        position: absolute;
+        top: 6rem;
+        right: 0;
+        z-index: 20;
     }
 }
 </style>
