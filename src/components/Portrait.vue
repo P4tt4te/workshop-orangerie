@@ -41,6 +41,7 @@
             :currentQuestion="currentQuestion"
             @revealPoi="revealPoi"
         />
+        <Subtitles :currentSubtitles="currentSubtitles" />
     </div>
 </template>
 
@@ -48,11 +49,13 @@
 import Quiz from '@/components/Quiz.vue'
 import PaintHole from '@/components/PaintHole.vue'
 import { bus } from '../main'
+import Subtitles from '@/components/Subtitles.vue'
 
 export default {
     components: {
         Quiz,
         PaintHole,
+        Subtitles,
     },
     props: {
         portrait: Object,
@@ -65,6 +68,9 @@ export default {
             audio: null,
             isComplete: false,
             goodAnswers: [],
+            subtitles: null,
+            currentSubtitles: null,
+            questionId: null,
         }
     },
     created() {
@@ -79,9 +85,16 @@ export default {
             this.isQuizActive = true
             this.currentQuestion = this.portrait.questions[index]
         },
-        revealPoi(question) {
+        async revealPoi(question) {
             this.portrait.questions[question.id].isAnswered = true
             this.isQuizActive = false
+            this.questionId = question.id
+
+            this.subtitles = await import(
+                `@/assets/paintings/painting-${this.portrait.id}/subtitles/${this.questionId}.json`
+            ).then((module) => {
+                return module.default
+            })
 
             this.clearAudio()
             this.audio = new Audio(
@@ -92,13 +105,21 @@ export default {
             this.portrait.questions.forEach((answer) => {
                 this.goodAnswers.push(answer)
             })
+            this.audio.addEventListener('ended', async () => {
+                this.currentSubtitles = null
+            })
             if (this.goodAnswers.every(this.checkGoodAnswers) === true) {
-                this.audio.addEventListener('ended', () => {
+                this.audio.addEventListener('ended', async () => {
                     this.audio.currentTime = 0
                     this.clearAudio()
                     this.audio = new Audio(
                         `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
                     )
+                    this.subtitles = await import(
+                        `@/assets/paintings/painting-${this.portrait.id}/subtitles/complete.json`
+                    ).then((module) => {
+                        return module.default
+                    })
                     setTimeout(() => {
                         this.isComplete = true
                         this.audio.play()
@@ -113,8 +134,23 @@ export default {
             if (this.audio) {
                 this.audio.pause()
                 this.audio = null
+                this.currentSubtitles = null
             }
         },
+    },
+    mounted() {
+        setInterval(() => {
+            if (this.audio) {
+                this.subtitles.forEach((s) => {
+                    if (
+                        this.audio.currentTime > s.start &&
+                        this.audio.currentTime < s.end
+                    ) {
+                        this.currentSubtitles = s.text
+                    }
+                })
+            }
+        }, 100)
     },
     beforeDestroy() {
         this.clearAudio()
