@@ -3,8 +3,9 @@
         :class="[status && activeClass, paintholeClass]"
         :style="{ '--top': top + '%', '--left': left + '%' }"
     >
-        <Ping :top="top" :left="left" :status="status" />
-        <Sticker :top="top" :left="left" :image="image" />
+        <!--<Ping :top="top" :left="left" :status="status" /> -->
+        <!--<Sticker :top="top" :left="left" :image="image" />-->
+        <img class="calc" :src="image" />
     </div>
 </template>
 
@@ -37,33 +38,21 @@ $size: 15vh;
 
 .Painthole {
     position: absolute;
-    width: $size;
-    height: $size;
+    width: max-content;
+    height: max-content;
     top: var(--top);
     left: var(--left);
-    z-index: 10;
-    
-    &.active .Sticker {
+    transform: scale(1.11);
+    transition: 1s ease-in-out all;
+
+    &.active {
         transform: translate3d(
-                var(--left) - calc($size / 2),
-                var(--top) - calc($size / 2),
-                0
-            )
-            scale(1) rotate(0deg);
+            var(--left) - calc($size / 2),
+            var(--top) - calc($size / 2),
+            0
+        );
         transition-delay: 0s;
-        opacity: 1;
-
-        .stickerFront {
-            height: $size;
-        }
-
-        .stickerBack {
-            top: 0;
-
-            &:before {
-                top: -$size;
-            }
-        }
+        opacity: 0;
     }
 }
 </style>

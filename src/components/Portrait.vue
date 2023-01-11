@@ -22,7 +22,7 @@
                 :image="
                     'src/assets/paintings/painting-' +
                     portrait.id +
-                    '/stickers/sticker' +
+                    '/stickers/calc' +
                     (index + 1) +
                     '.png'
                 "
