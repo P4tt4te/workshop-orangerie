@@ -24,9 +24,6 @@
                 />
             </div>
         </div>
-        <button class="start-button" @click="$emit('startExperience')">
-            Démarrer l'expérience
-        </button>
         <SlideButton
             name="Démarrer l'expérience"
             :on-validate="startExperience"
@@ -128,15 +125,6 @@ export default {
                 left: 0%;
             }
         }
-    }
-
-    .start-button {
-        border-radius: 10rem;
-        border: 0.05rem solid $white;
-        padding: 2rem 4rem;
-        font-family: $mono;
-        text-transform: uppercase;
-        letter-spacing: 0.1rem;
     }
 }
 </style>
