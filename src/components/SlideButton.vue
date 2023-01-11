@@ -140,7 +140,7 @@ export default {
     height: 59px;
     border: 2px solid white;
     border-radius: 100px;
-    font-family: 'basierCircleMono-regular';
+    font-family: $mono;
 }
 .arrowCircle {
     width: 39px;
