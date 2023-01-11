@@ -23,6 +23,7 @@ import { Hands } from '@mediapipe/hands'
 import { Camera } from '@mediapipe/camera_utils'
 import cursor from '../assets/cursor.svg'
 import cursorClick from '../assets/cursor-click.svg'
+import { bus } from '../main'
 
 export default {
     data: function () {
@@ -54,6 +55,12 @@ export default {
         canvasElement.width = innerWidth
         canvasElement.height = innerHeight
         this.init()
+    },
+    created() {
+        bus.$on('getHandPositions', () => {
+            let positions = this.getPosition()
+            bus.$emit('sendHandPositions', positions)
+        })
     },
     methods: {
         init() {
@@ -112,7 +119,7 @@ export default {
                 document.getElementById('cursor').style.top =
                     this.mousePosY - 50 + 'px'
                 document.getElementById('cursor').style.left =
-                    this.mousePosX - 25  + 'px'
+                    this.mousePosX - 25 + 'px'
             }
         },
         handGesture(results) {
@@ -145,13 +152,32 @@ export default {
                 ).style.backgroundImage = `url(${cursor})`
             }
         },
+        sendEvent(value) {
+            bus.$emit('isHandClosed', {
+                status: value,
+                x: this.mousePosX,
+                y: this.mousePosY,
+            })
+        },
+        getPosition() {
+            return {
+                x: this.mousePosX,
+                y: this.mousePosY,
+            }
+        },
     },
     watch: {
         isHandClosed: function (val) {
             if (val) {
+                this.sendEvent(true)
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
+                console.log(
+                    document.elementsFromPoint(this.mousePosX, this.mousePosY)
+                )
+            } else {
+                this.sendEvent(false)
             }
         },
     },
@@ -160,29 +186,29 @@ export default {
 <style lang="scss">
 .container {
     position: fixed;
-    opacity: 0.5;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+    pointer-events: none;
 }
 
 .input_video {
     display: none;
 }
 .output_canvas {
-    width: 100%;
-    height: 100%;
+    width: 20%;
+    height: 20%;
+    opacity: 0.5;
 }
 
 #cursor {
+    position: fixed;
     width: 50px;
     height: 50px;
-    position: absolute;
-    z-index: 10;
     top: 50vh;
     left: 50vw;
-    z-index: 2;
+    z-index: 10;
     background-repeat: no-repeat;
     background-size: cover;
 }

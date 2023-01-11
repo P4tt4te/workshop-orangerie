@@ -19,7 +19,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
     props: {
@@ -27,7 +26,6 @@ export default {
     },
 }
 </script>
-
 <style lang="scss" scoped>
 .Previews {
     height: 100%;
@@ -54,7 +52,7 @@ export default {
         }
 
         &:hover {
-            opacity: .8;
+            opacity: 0.8;
             animation-play-state: paused;
             z-index: 10;
         }
