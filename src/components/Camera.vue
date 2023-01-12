@@ -84,8 +84,8 @@ export default {
             })
             hands.setOptions({
                 maxNumHands: 1,
-                minDetectionConfidence: 0.5,
-                minTrackingConfidence: 0.9,
+                minDetectionConfidence: 0.6,
+                minTrackingConfidence: 0.7,
                 modelComplexity: 1,
                 selfieMode: true,
             })
