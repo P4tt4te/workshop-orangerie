@@ -15,7 +15,15 @@
             :height="height"
         ></canvas>
         <div id="cursor"></div>
-        <div id="square"></div>
+        <div id="timer">
+            <div class="warningSign">!</div>
+            <div class="timerText">
+                <span class="time"
+                    >{{ this.timeBeforeRestart }} sec avant relance</span
+                >
+                <span>Pas de main connecté</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,6 +51,8 @@ export default {
             mousePosY: 0,
             isHandClosed: false,
             clickStatus: false,
+            timeBeforeRestart: 40,
+            timerId: null,
         }
     },
     computed: {
@@ -130,10 +140,6 @@ export default {
                     this.mousePosY - 15 + 'px'
                 document.getElementById('cursor').style.left =
                     this.mousePosX - 15 + 'px'
-                document.getElementById('square').style.top =
-                    this.mousePosY + 'px'
-                document.getElementById('square').style.left =
-                    this.mousePosX + 'px'
             }
         },
         handGesture(results) {
@@ -155,9 +161,36 @@ export default {
                         this.isHandClosed = true
                     }
                 }
+                if (this.timeBeforeRestart <= 40 && this.timerId !== null) {
+                    clearInterval(this.timerId)
+                    if (
+                        document
+                            .querySelector('#timer')
+                            .classList.contains('active')
+                    ) {
+                        document
+                            .querySelector('#timer')
+                            .classList.remove('active')
+                    }
+                    this.timeBeforeRestart = 40
+                    this.timerId = null
+                }
                 document.getElementById('cursor').style.display = 'block'
             } else {
+                if (this.timeBeforeRestart === 40 && this.timerId === null) {
+                    let timerClock = setInterval(() => this.setTimer(), 1000)
+                    this.timerId = timerClock
+                }
                 document.getElementById('cursor').style.display = 'none'
+            }
+        },
+        setTimer() {
+            this.timeBeforeRestart--
+            if (this.timeBeforeRestart === 13) {
+                document.querySelector('#timer').classList.add('active')
+            }
+            if (this.timeBeforeRestart < 1) {
+                this.$router.go()
             }
         },
         handleCursor() {
@@ -231,13 +264,48 @@ export default {
     pointer-events: none;
 }
 
-#square {
+#timer.active {
+    opacity: 1;
+}
+
+#timer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 5px;
-    background-color: red;
+    top: 50px;
+    left: 50px;
+    display: flex;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    gap: 1rem;
+    font-family: $mono;
+    font-size: 1.2rem;
+    background-color: $orange;
+    text-transform: uppercase;
+    color: $black;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    border-radius: 50rem;
+    opacity: 0;
+    transition: 3s ease-in-out;
+
+    & .timerText {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        & .time {
+            font-size: 1.6rem;
+        }
+    }
+
+    & .warningSign {
+        color: $orange;
+        background-color: $black;
+        height: 39px;
+        width: 39px;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .input_video {

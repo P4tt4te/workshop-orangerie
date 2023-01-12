@@ -75,9 +75,6 @@ export default {
     },
     methods: {
         startExperience() {
-            // WIP: prevent from emitting many times
-            console.log('test')
-
             this.isButtonDisabled = true
 
             setTimeout(() => {
