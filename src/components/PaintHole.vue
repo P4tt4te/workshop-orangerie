@@ -44,7 +44,7 @@ $size: 15vh;
     height: max-content;
     top: var(--top);
     left: var(--left);
-    transform: scale(1.11);
+    transform: scale(.6);
     transition: 1s ease-in-out all;
 
     .poi {
