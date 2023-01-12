@@ -57,8 +57,9 @@
                 "answer": "Elle ferme un œil",
                 "isAnswered": false,
                 "coords": {
-                    "x": 32,
-                    "y": 1.2
+                    "x": 37,
+                    "y": 0,
+                    "width": 32
                 }
             },
             {
@@ -69,7 +70,8 @@
                 "isAnswered": false,
                 "coords": {
                     "x": 20.5,
-                    "y": 22
+                    "y": 22,
+                    "width": 70
                 }
             },
             {
@@ -79,8 +81,9 @@
                 "answer": "Une chaise",
                 "isAnswered": false,
                 "coords": {
-                    "x": 7,
-                    "y": 67.5
+                    "x": 15.4,
+                    "y": 69.3,
+                    "width": 72
                 }
             }
         ]
