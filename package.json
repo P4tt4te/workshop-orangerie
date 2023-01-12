@@ -16,7 +16,6 @@
     "@mediapipe/tasks-vision": "^0.1.0-alpha-1",
     "gsap": "^3.5.1",
     "interactjs": "^1.10.17",
-    "swiper-vue2": "^1.0.10",
     "tweakpane": "^3.1.1",
     "vue": "^2.7.7",
     "vue-router": "^3.5.4"

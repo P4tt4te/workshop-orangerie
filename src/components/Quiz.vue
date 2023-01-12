@@ -1,6 +1,6 @@
 <template>
     <div class="Quiz">
-        <div class="Quiz__meta">
+        <div class="Quiz__meta" ref="meta">
             <small class="Quiz__label"
                 >Question n°{{ currentQuestion.id + 1 }}</small
             >
@@ -11,6 +11,7 @@
                 class="Quiz__button"
                 @click="selectOption($event)"
                 v-for="(option, index) in currentQuestion.options"
+                ref="button"
             >
                 <div class="icon">{{ letters[index] }}</div>
                 <div class="text">{{ option }}</div>
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+
 export default {
     props: {
         currentQuestion: Object,
@@ -29,6 +32,32 @@ export default {
             letters: ['A', 'B', 'C'],
             selectedOption: '',
         }
+    },
+    mounted() {
+        const tl = gsap.timeline({
+            defaults: {
+                ease: 'Power4.easeOut',
+            },
+        })
+        tl.from(this.$refs.meta, {
+            duration: 2,
+            y: '-50%',
+            autoAlpha: 0,
+        })
+        tl.fromTo(
+            this.$refs.button,
+            {
+                autoAlpha: 0,
+                y: 50,
+                x: 50,
+            },
+            {
+                autoAlpha: 1,
+                y: 0,
+                x: 0,
+                stagger: 0.5,
+            }
+        )
     },
     methods: {
         selectOption(event) {
@@ -43,7 +72,7 @@ export default {
 
                 setTimeout(() => {
                     this.$emit('revealPoi', this.currentQuestion)
-                }, 1000)
+                }, 500)
             } else {
                 event.target.classList.add('Quiz__button--bad-answer')
 
@@ -52,6 +81,10 @@ export default {
                 }, 1000)
             }
         },
+    },
+    beforeDestroy() {
+        gsap.killTweensOf(this.$refs.meta)
+        gsap.killTweensOf(this.$refs.button)
     },
 }
 </script>
@@ -64,13 +97,11 @@ export default {
     top: 0;
     left: 0;
     padding-top: 6rem;
-    // padding: 6rem;
-    // border: 0.1rem solid red;
 
     &__meta {
         padding-top: 2rem;
         border-top: 0.1rem dashed $white;
-        max-width: 30%;
+        max-width: 40%;
     }
 
     &__label {
@@ -88,15 +119,12 @@ export default {
     }
 
     &__options {
-        // margin-top: 3rem;
-        // border: 0.1rem solid blue;
         width: 100%;
         height: 100%;
-        // height: calc(100% - 14.6rem);
-        // position: relative;
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 0;
     }
 
     &__button {

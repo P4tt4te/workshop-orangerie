@@ -13,3 +13,12 @@
         transform: rotate(360deg) translateX(10px) rotate(-360deg) scale(0.8);
     }
 }
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.75s ease-in-out;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}

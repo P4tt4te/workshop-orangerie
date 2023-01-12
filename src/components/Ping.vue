@@ -1,9 +1,11 @@
 <template>
     <div
         :style="{ '--top': top + '%', '--left': left + '%' }"
-        :class="[!status && activeClass, pingClass]"
-    ></div>
+        :class="[!status ? activeClass : disabledClass, pingClass]"
+    >
+    </div>
 </template>
+
 <script>
 export default {
     props: {
@@ -14,11 +16,13 @@ export default {
     data() {
         return {
             activeClass: 'active',
+            disabledClass: 'disabled',
             pingClass: 'Ping',
         }
     },
 }
 </script>
+
 <style lang="scss">
 $size: 15vh;
 
@@ -30,25 +34,31 @@ $size: 15vh;
     height: $size;
     border-radius: 50%;
     background-color: transparent;
+
+    &.active {
+        background-color: rgb(219, 216, 175);
+        animation: 2s ease-in-out pingEffect infinite;
+    }
+
+    &.disabled {
+        pointer-events: none;
+    }
 }
 
-.Ping.active {
-    background-color: white;
-    animation: 2s ease-in-out pingEffect infinite;
-}
-
-@keyframes pingEffect {
+@keyframes pulse-black {
     0% {
-        box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
-            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
+        transform: scale(0.95) translate(-50%, -50%);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
     }
-    50% {
-        box-shadow: 0px 0px 20px 20px rgba(221, 225, 7, 0.25),
-            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
+
+    70% {
+        transform: scale(1) translate(-50%, -50%);
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
     }
+
     100% {
-        box-shadow: 0px 0px 10px 10px rgba(221, 225, 7, 0.25),
-            inset 2px 2px 11px 3px rgba(0, 0, 0, 0.71);
+        transform: scale(0.95) translate(-50%, -50%);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     }
 }
 </style>
