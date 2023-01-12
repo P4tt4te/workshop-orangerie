@@ -79,6 +79,9 @@ export default {
             })
         },
     },
+    beforeDestroy() {
+        gsap.killTweensOf(this.$refs.meta)
+    },
 }
 </script>
 
