@@ -21,7 +21,6 @@
             </transition>
             <PaintHole
                 v-for="(poi, index) in portrait.questions"
-                v-if="!isOverlayActive && !isComplete"
                 @click.native="startQuiz(index)"
                 :key="index"
                 :left="poi.coords.x"
@@ -210,6 +209,7 @@ export default {
         top: 0;
         left: 0;
         background-color: rgba(0, 0, 0, 0.7);
+        z-index: 20;
         height: 100%;
         width: 100%;
         display: flex;
