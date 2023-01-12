@@ -270,7 +270,7 @@ export default {
 
 #timer {
     position: absolute;
-    top: 50px;
+    bottom: 50px;
     left: 50px;
     display: flex;
     padding: 1rem 1.5rem 1rem 1.5rem;
