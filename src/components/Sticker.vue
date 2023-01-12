@@ -63,6 +63,7 @@ $size: 15vh;
 .stickerFront {
     height: 0;
 }
+
 .stickerBack {
     top: $size;
     overflow: hidden;
