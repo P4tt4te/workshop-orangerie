@@ -190,8 +190,8 @@ export default {
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
-                /*
-                var d = document.createElement('div')
+
+                let d = document.createElement('div')
                 d.className = 'clickEffect'
                 d.style.top = this.mousePosY + 60 + 'px'
                 d.style.left = this.mousePosX + 40 + 'px'
@@ -201,9 +201,7 @@ export default {
                     function () {
                         d.parentElement.removeChild(d)
                     }.bind(this)
-                    
                 )
-                */
             } else {
                 this.sendEvent(false)
             }
