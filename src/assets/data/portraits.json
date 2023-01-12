@@ -98,24 +98,8 @@
         "image": "image3.jpeg",
         "questions": [
             {
-                "question": "Quelle posture arbore l’enfant de chœur ?",
-                "id": 0,
-                "options": [
-                    "Il a les mains jointes",
-                    "Il croise les bras",
-                    "Il a les bras le long du corps"
-                ],
-                "answer": "Il a les mains jointes",
-                "isAnswered": false,
-                "coords": {
-                    "x": 20,
-                    "y": 71,
-                    "width": 21
-                }
-            },
-            {
                 "question": "Quelle expression semble revêtir l’enfant de chœur ?",
-                "id": 1,
+                "id": 0,
                 "options": ["La tristesse", "La joie", "Un mélange des deux"],
                 "answer": "Un mélange des deux",
                 "isAnswered": false,
@@ -127,7 +111,7 @@
             },
             {
                 "question": "Quelle discrète touche de couleur a été ajoutée par-dessus le rouge ?",
-                "id": 2,
+                "id": 1,
                 "options": ["Du vert", "Du jaune", "Du bleu clair"],
                 "answer": "Du jaune",
                 "isAnswered": false,
@@ -135,6 +119,22 @@
                     "x": 37,
                     "y": 32,
                     "width": 27
+                }
+            },
+            {
+                "question": "Quelle posture arbore l’enfant de chœur ?",
+                "id": 2,
+                "options": [
+                    "Il a les mains jointes",
+                    "Il croise les bras",
+                    "Il a les bras le long du corps"
+                ],
+                "answer": "Il a les mains jointes",
+                "isAnswered": false,
+                "coords": {
+                    "x": 20,
+                    "y": 71,
+                    "width": 21
                 }
             }
         ]
