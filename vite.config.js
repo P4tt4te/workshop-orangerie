@@ -29,4 +29,10 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
     },
+    build: {
+        commonjsOptions: { include: [] },
+    },
+    optimizeDeps: {
+        disabled: false,
+    },
 })
