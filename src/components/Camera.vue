@@ -42,6 +42,7 @@ export default {
             mousePosX: 0,
             mousePosY: 0,
             isHandClosed: false,
+            clickStatus: false,
         }
     },
     computed: {
@@ -186,15 +187,22 @@ export default {
                 y: this.mousePosY,
             }
         },
+        setStatus() {
+            let clickTimeout = setTimeout(() => {
+                this.clickStatus = false
+                clearTimeout(clickTimeout)
+            }, 500)
+        },
     },
     watch: {
         isHandClosed: function (val) {
-            if (val) {
+            if (val && this.clickStatus === false) {
                 this.sendEvent(true)
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
-
+                this.clickStatus = true
+                this.setStatus()
                 let d = document.createElement('div')
                 d.className = 'clickEffect'
                 d.style.top = this.mousePosY + 60 + 'px'
