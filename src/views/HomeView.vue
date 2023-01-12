@@ -170,6 +170,18 @@ export default {
             rotateX(${params.rotateX}turn)
             rotateY(${params.rotateY}turn)
             `
+
+            let cursor = document.getElementById('cursor')
+
+            cursor.style.transform = `
+            perspective(${params.perspective}px)
+            scale(${params.scale})
+            skewX(${params.skewX}deg)
+            skewY(${params.skewY}deg)
+            rotate(${params.rotate}turn)
+            rotateX(${params.rotateX}turn)
+            rotateY(${params.rotateY}turn)
+            `
         },
     },
 }
