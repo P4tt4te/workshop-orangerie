@@ -15,8 +15,26 @@
                         '/image.jpeg'
                     "
                     alt=""
+                    v-if="portrait.isComplete"
+                />
+                <img
+                    :src="
+                        'src/assets/paintings/painting-' +
+                        portrait.id +
+                        '/dirty-image.jpeg'
+                    "
+                    alt=""
+                    v-if="!portrait.isComplete"
                 />
             </div>
+            <footer class="Previews__footer" ref="footer">
+                <div class="icon">
+                    <img src="@/assets/svg/pointer-icon.svg" alt="" />
+                </div>
+                <p class="text">
+                    Pointez une œuvre pour tenter de la restaurer
+                </p>
+            </footer>
         </div>
     </div>
 </template>
@@ -35,9 +53,12 @@ export default {
             },
         })
 
+        tl.from(this.$refs.footer, {
+            duration: 2,
+            autoAlpha: 0,
+        })
         tl.from(this.$refs.item, {
             duration: 2,
-            delay: 1,
             top: '50%',
             autoAlpha: 0,
         })
@@ -96,11 +117,39 @@ export default {
         height: 100%;
     }
 
+    &__footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        padding-bottom: 6rem;
+
+        .icon {
+            width: 6.4rem;
+            margin: auto;
+            margin-bottom: 2rem;
+        }
+
+        .text {
+            font-family: $mono;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+    }
+
     .item {
         width: 35rem;
         opacity: 0.8;
         position: absolute;
-        animation: orbit 8s linear infinite;
+
+        &:nth-child(odd) {
+            animation: orbit 8s linear infinite;
+        }
+
+        &:nth-child(even) {
+            animation: reverse-orbit 8s linear infinite;
+        }
 
         &:nth-child(1) {
             top: 20%;
