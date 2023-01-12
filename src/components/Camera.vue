@@ -72,7 +72,7 @@ export default {
             hands.setOptions({
                 maxNumHands: 1,
                 minDetectionConfidence: 0.5,
-                minTrackingConfidence: 0.5,
+                minTrackingConfidence: 0.9,
                 modelComplexity: 1,
                 selfieMode: true,
             })
@@ -145,10 +145,13 @@ export default {
                 document.getElementById(
                     'cursor'
                 ).style.backgroundImage = `url(${cursorClick})`
+                document.getElementById('cursor').style.backgroundSize =
+                    '30px 35px'
             } else {
                 document.getElementById(
                     'cursor'
                 ).style.backgroundImage = `url(${cursor})`
+                document.getElementById('cursor').style.backgroundSize = 'cover'
             }
         },
         sendEvent(value) {
@@ -168,12 +171,21 @@ export default {
     watch: {
         isHandClosed: function (val) {
             if (val) {
+                console.log('handClosed')
                 this.sendEvent(true)
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
-                console.log(
-                    document.elementsFromPoint(this.mousePosX, this.mousePosY)
+                var d = document.createElement('div')
+                d.className = 'clickEffect'
+                d.style.top = this.mousePosY + 60 + 'px'
+                d.style.left = this.mousePosX + 40 + 'px'
+                document.body.appendChild(d)
+                d.addEventListener(
+                    'animationend',
+                    function () {
+                        d.parentElement.removeChild(d)
+                    }.bind(this)
                 )
             } else {
                 this.sendEvent(false)
@@ -203,13 +215,40 @@ export default {
 
 #cursor {
     position: fixed;
-    width: 50px;
-    height: 50px;
     top: 50vh;
     left: 50vw;
+    width: 35px;
+    height: 45px;
     z-index: 10;
     background-repeat: no-repeat;
     background-size: cover;
-    user-select: none;
+    background-position: bottom center;
+}
+
+div.clickEffect {
+    position: fixed;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #ffffff;
+    border-radius: 50%;
+    animation: clickEffect 1s ease-out;
+    z-index: 99999;
+}
+
+@keyframes clickEffect {
+    0% {
+        opacity: 1;
+        width: 0.5em;
+        height: 0.5em;
+        margin: -2em;
+        border-width: 0.5em;
+    }
+    100% {
+        opacity: 0.2;
+        width: 10em;
+        height: 10em;
+        margin: -7em;
+        border-width: 0.03em;
+    }
 }
 </style>
