@@ -42,6 +42,7 @@ export default {
             mousePosX: 0,
             mousePosY: 0,
             isHandClosed: false,
+            clickStatus: false,
         }
     },
     computed: {
@@ -126,8 +127,12 @@ export default {
                 }
                 this.mousePosY = newMousePosY
                 document.getElementById('cursor').style.top =
-                    this.mousePosY + 'px'
+                    this.mousePosY - 15 + 'px'
                 document.getElementById('cursor').style.left =
+                    this.mousePosX - 15 + 'px'
+                document.getElementById('square').style.top =
+                    this.mousePosY + 'px'
+                document.getElementById('square').style.left =
                     this.mousePosX + 'px'
             }
         },
@@ -182,15 +187,22 @@ export default {
                 y: this.mousePosY,
             }
         },
+        setStatus() {
+            let clickTimeout = setTimeout(() => {
+                this.clickStatus = false
+                clearTimeout(clickTimeout)
+            }, 500)
+        },
     },
     watch: {
         isHandClosed: function (val) {
-            if (val) {
+            if (val && this.clickStatus === false) {
                 this.sendEvent(true)
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
-
+                this.clickStatus = true
+                this.setStatus()
                 let d = document.createElement('div')
                 d.className = 'clickEffect'
                 d.style.top = this.mousePosY + 60 + 'px'
@@ -256,7 +268,7 @@ div.clickEffect {
     border-color: #ffffff;
     border-radius: 50%;
     animation: clickEffect 1s ease-out;
-    z-index: 99999;
+    z-index: 11;
 }
 
 @keyframes clickEffect {
