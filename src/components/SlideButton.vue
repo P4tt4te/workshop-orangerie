@@ -1,5 +1,5 @@
 <template>
-    <div :class="'Slidebutton'">
+    <div :class="'SlideButton'">
         <img
             class="arrowCircle"
             src="src/assets/arrow-circle.svg"
@@ -8,6 +8,7 @@
         <span>{{ name }}</span>
     </div>
 </template>
+
 <script>
 import interact from 'interactjs'
 import { bus } from '../main'
@@ -44,7 +45,7 @@ export default {
             this.dragMoveEvent(fakeEvent)
         })
     },
-    beforeUnmount() {
+    beforeDestroy() {
         bus.$off()
     },
     methods: {
@@ -55,7 +56,7 @@ export default {
                 inertia: true,
                 listeners: {
                     start(event) {
-                        console.log(event.type, event.target)
+                        // console.log(event.type, event.target)
                     },
                     move: this.dragMoveEvent,
                     end: this.replaceCircle,
@@ -100,10 +101,10 @@ export default {
         handOnSlider(value) {
             if (
                 value.status === true &&
-                document.querySelector('.Slidebutton')
+                document.querySelector('.SlideButton')
             ) {
                 let objRect = document
-                    .querySelector('.Slidebutton')
+                    .querySelector('.SlideButton')
                     .getBoundingClientRect()
                 if (
                     value.x > objRect.x - 20 &&
@@ -135,8 +136,9 @@ export default {
     },
 }
 </script>
+
 <style lang="scss" scoped>
-.Slidebutton {
+.SlideButton {
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -152,10 +154,19 @@ export default {
     font-family: $mono;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-}
-.arrowCircle {
-    width: 39px;
-    height: 39px;
-    transform: translateX(0px);
+    transition: 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-property: opacity, transform, visibility;
+
+    .arrowCircle {
+        width: 39px;
+        height: 39px;
+        transform: translateX(0px);
+    }
+
+    &--disabled {
+        opacity: 0;
+        transform: translateY(30%);
+        visibility: hidden;
+    }
 }
 </style>
