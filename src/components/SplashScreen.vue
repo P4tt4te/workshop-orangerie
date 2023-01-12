@@ -78,10 +78,29 @@ export default {
     },
     methods: {
         startExperience() {
-            // WIP: prevent from emitting many times
-            console.log('test')
-
             this.isButtonDisabled = true
+
+            const tl = gsap.timeline({
+                defaults: {
+                    ease: 'Power4.easeOut',
+                },
+            })
+
+            tl.to(this.$refs.header, {
+                delay: 1,
+                autoAlpha: 0,
+            })
+            tl.to(this.$refs.backgroundPortrait, {
+                delay: -1,
+                duration: 2,
+                top: '-50%',
+                autoAlpha: 0,
+            })
+            tl.to(this.$refs.contentLogo, {
+                delay: -2,
+                duration: 2,
+                autoAlpha: 0,
+            })
 
             setTimeout(() => {
                 this.$emit('startExperience')
@@ -139,7 +158,14 @@ export default {
             opacity: 0.3;
             position: absolute;
             transform: scale(0.8);
-            animation: orbit 8s linear infinite;
+
+            &:nth-child(odd) {
+                animation: orbit 8s linear infinite;
+            }
+
+            &:nth-child(even) {
+                animation: reverse-orbit 8s linear infinite;
+            }
 
             &:nth-child(1) {
                 top: 5%;
