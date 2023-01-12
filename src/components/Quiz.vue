@@ -72,7 +72,7 @@ export default {
 
                 setTimeout(() => {
                     this.$emit('revealPoi', this.currentQuestion)
-                }, 1000)
+                }, 500)
             } else {
                 event.target.classList.add('Quiz__button--bad-answer')
 
@@ -81,6 +81,10 @@ export default {
                 }, 1000)
             }
         },
+    },
+    beforeDestroy() {
+        gsap.killTweensOf(this.$refs.meta)
+        gsap.killTweensOf(this.$refs.button)
     },
 }
 </script>
@@ -93,13 +97,12 @@ export default {
     top: 0;
     left: 0;
     padding-top: 6rem;
-    // padding: 6rem;
     // border: 0.1rem solid red;
 
     &__meta {
         padding-top: 2rem;
         border-top: 0.1rem dashed $white;
-        max-width: 30%;
+        max-width: 40%;
     }
 
     &__label {

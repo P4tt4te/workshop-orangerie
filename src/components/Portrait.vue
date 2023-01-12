@@ -1,22 +1,29 @@
 <template>
     <div class="Portrait wrap-resp">
         <button class="Portrait__go-back" @click="$emit('closePortrait')">
-            [BOUTON RETOUR]
+            BOUTON RETOUR
         </button>
-        <div class="Portrait__overlay" v-if="isOverlayActive">
-            <div class="icon"></div>
-            <p>Pointez une zone abîmée pour tenter de la restaurer</p>
-        </div>
-        <header class="Portrait__meta" v-if="isComplete">
-            <p class="label">Vous avez restauré</p>
-            <h2 class="title">{{ portrait.title }}, {{ portrait.date }}</h2>
-        </header>
+        <PortraitMeta
+            v-if="isComplete"
+            :title="portrait.title"
+            :date="portrait.date"
+        />
         <div class="Portrait__illus">
+            <transition name="fade">
+                <div class="Portrait__overlay" v-if="isOverlayActive">
+                    <div class="icon">
+                        <img src="@/assets/svg/pointer-icon.svg" alt="" />
+                    </div>
+                    <p class="text">
+                        Pointez une zone abîmée pour tenter de la restaurer
+                    </p>
+                </div>
+            </transition>
             <PaintHole
                 v-for="(poi, index) in portrait.questions"
+                v-if="!isOverlayActive && !isComplete"
                 @click.native="startQuiz(index)"
                 :key="index"
-                ref="poi"
                 :left="poi.coords.x"
                 :top="poi.coords.y"
                 :image="
@@ -34,7 +41,19 @@
                     portrait.id +
                     '/image.jpeg'
                 "
+                v-if="!isComplete"
             />
+            <!-- <transition name="fade"> -->
+            <video
+                :src="
+                    'src/assets/paintings/painting-' +
+                    portrait.id +
+                    '/video.mp4'
+                "
+                v-if="isComplete"
+                ref="video"
+            ></video>
+            <!-- </transition> -->
         </div>
         <Quiz
             v-if="isQuizActive"
@@ -48,21 +67,22 @@
 <script>
 import Quiz from '@/components/Quiz.vue'
 import PaintHole from '@/components/PaintHole.vue'
-import { bus } from '../main'
 import Subtitles from '@/components/Subtitles.vue'
+import PortraitMeta from '@/components/PortraitMeta.vue'
 
 export default {
     components: {
         Quiz,
         PaintHole,
         Subtitles,
+        PortraitMeta,
     },
     props: {
         portrait: Object,
     },
     data() {
         return {
-            isOverlayActive: false,
+            isOverlayActive: true,
             isQuizActive: false,
             currentQuestion: null,
             audio: null,
@@ -70,14 +90,7 @@ export default {
             goodAnswers: [],
             subtitles: null,
             currentSubtitles: null,
-            questionId: null,
         }
-    },
-    created() {
-        // bus.$on('slideChange', () => {
-        //     this.isQuizActive = false
-        //     this.clearAudio()
-        // })
     },
     methods: {
         startQuiz(index) {
@@ -88,10 +101,9 @@ export default {
         async revealPoi(question) {
             this.portrait.questions[question.id].isAnswered = true
             this.isQuizActive = false
-            this.questionId = question.id
 
             this.subtitles = await import(
-                `@/assets/paintings/painting-${this.portrait.id}/subtitles/${this.questionId}.json`
+                `@/assets/paintings/painting-${this.portrait.id}/subtitles/${question.id}.json`
             ).then((module) => {
                 return module.default
             })
@@ -139,6 +151,10 @@ export default {
         },
     },
     mounted() {
+        setTimeout(() => {
+            this.isOverlayActive = false
+        }, 4000)
+
         setInterval(() => {
             if (this.audio) {
                 this.subtitles.forEach((s) => {
@@ -151,6 +167,13 @@ export default {
                 })
             }
         }, 100)
+    },
+    updated() {
+        this.$nextTick(() => {
+            if (this.$refs.video) {
+                this.$refs.video.play()
+            }
+        })
     },
     beforeDestroy() {
         this.clearAudio()
@@ -167,30 +190,6 @@ export default {
     align-items: center;
     position: relative;
 
-    &__meta {
-        position: absolute;
-        top: 6rem;
-        left: 50%;
-        transform: translate(-50%, 0%);
-        text-align: center;
-        z-index: 20;
-
-        .label {
-            font-family: $mono;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-        }
-
-        .title {
-            font-family: $serif;
-            font-size: 6rem;
-            margin-top: 1rem;
-            // font-family: $mono;
-            // text-transform: uppercase;
-            // letter-spacing: 0.1rem;
-        }
-    }
-
     &__illus {
         position: relative;
         height: 75%;
@@ -199,13 +198,48 @@ export default {
             object-fit: contain;
             height: 100%;
         }
+
+        video {
+            object-fit: contain;
+            height: 100%;
+        }
     }
 
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        .icon {
+            width: 6.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .text {
+            font-family: $mono;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            max-width: 30rem;
+        }
+    }
+
+    // DEBUG
     &__go-back {
         position: absolute;
         top: 6rem;
         right: 0;
         z-index: 20;
+        padding: 5rem;
+        background-color: $white;
+        color: $black;
     }
 }
 </style>
