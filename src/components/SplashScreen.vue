@@ -73,36 +73,15 @@ export default {
             delay: -1,
             autoAlpha: 0,
             y: 50,
-            rotate: -3,
             duration: 2,
-        })
-
-        let instance
-
-        this.$on('animOut', () => {
-            console.log('fire')
-
-            // tl.to(this.$refs.header, {
-            //     duration: 1,
-            //     y: -50,
-            //     autoAlpha: 0,
-            // })
-            // tl.to(this.$refs.contentLogo, {
-            //     duration: 1,
-            //     autoAlpha: 0,
-            // })
-            // tl.to(this.$refs.backgroundPortrait, {
-            //     duration: 2,
-            //     top: '50%',
-            //     autoAlpha: 0,
-            // })
         })
     },
     methods: {
         startExperience() {
-            this.isButtonDisabled = true
+            // WIP: prevent from emitting many times
             console.log('test')
-            this.$emit('animOut')
+
+            this.isButtonDisabled = true
 
             setTimeout(() => {
                 this.$emit('startExperience')
