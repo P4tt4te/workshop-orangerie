@@ -126,8 +126,12 @@ export default {
                 }
                 this.mousePosY = newMousePosY
                 document.getElementById('cursor').style.top =
-                    this.mousePosY + 'px'
+                    this.mousePosY - 15 + 'px'
                 document.getElementById('cursor').style.left =
+                    this.mousePosX - 15 + 'px'
+                document.getElementById('square').style.top =
+                    this.mousePosY + 'px'
+                document.getElementById('square').style.left =
                     this.mousePosX + 'px'
             }
         },
@@ -256,7 +260,7 @@ div.clickEffect {
     border-color: #ffffff;
     border-radius: 50%;
     animation: clickEffect 1s ease-out;
-    z-index: 99999;
+    z-index: 11;
 }
 
 @keyframes clickEffect {
