@@ -2,7 +2,7 @@
     <div :class="'SlideButton'">
         <img
             class="arrowCircle"
-            src="src/assets/arrow-circle.svg"
+            src="@/assets/svg/slide-icon.svg"
             alt="black arrow in a circle"
         />
         <span>{{ name }}</span>
