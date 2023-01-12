@@ -15,6 +15,7 @@
             :height="height"
         ></canvas>
         <div id="cursor"></div>
+        <div id="square"></div>
     </div>
 </template>
 
@@ -52,8 +53,9 @@ export default {
         this.ctx = this.$refs.output_canvas.getContext('2d')
         const canvasElement =
             document.getElementsByClassName('output_canvas')[0]
-        canvasElement.width = innerWidth
-        canvasElement.height = innerHeight
+        const canvasvals = canvasElement.getBoundingClientRect()
+        canvasElement.width = canvasvals.width
+        canvasElement.height = canvasvals.height
         this.init()
     },
     created() {
@@ -106,14 +108,21 @@ export default {
                 for (const landmarks of results.multiHandLandmarks) {
                     this.hand = [landmarks[9]]
                 }
-                let newMousePosX = 0
-                let newMousePosY = 0
+                let wrapperPositions = document
+                    .getElementsByClassName('Experience')[0]
+                    .getBoundingClientRect()
+                let newMousePosX = wrapperPositions.x
+                let newMousePosY = wrapperPositions.y
                 if (this.hand[0].x !== null && innerWidth !== null) {
-                    newMousePosX = this.hand[0].x * innerWidth
+                    newMousePosX =
+                        wrapperPositions.x +
+                        this.hand[0].x * wrapperPositions.width
                 }
                 this.mousePosX = newMousePosX
                 if (this.hand[0].y !== null && innerHeight !== null) {
-                    newMousePosY = this.hand[0].y * innerHeight
+                    newMousePosY =
+                        wrapperPositions.y +
+                        this.hand[0].y * wrapperPositions.height
                 }
                 this.mousePosY = newMousePosY
                 document.getElementById('cursor').style.top =
@@ -181,7 +190,8 @@ export default {
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
                     .click()
-                var d = document.createElement('div')
+
+                let d = document.createElement('div')
                 d.className = 'clickEffect'
                 d.style.top = this.mousePosY + 60 + 'px'
                 d.style.left = this.mousePosX + 40 + 'px'
@@ -207,6 +217,15 @@ export default {
     bottom: 0;
     right: 0;
     pointer-events: none;
+}
+
+#square {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    background-color: red;
 }
 
 .input_video {
