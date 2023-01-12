@@ -97,7 +97,6 @@ export default {
     top: 0;
     left: 0;
     padding-top: 6rem;
-    // border: 0.1rem solid red;
 
     &__meta {
         padding-top: 2rem;
@@ -120,15 +119,12 @@ export default {
     }
 
     &__options {
-        // margin-top: 3rem;
-        // border: 0.1rem solid blue;
         width: 100%;
         height: 100%;
-        // height: calc(100% - 14.6rem);
-        // position: relative;
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 0;
     }
 
     &__button {
