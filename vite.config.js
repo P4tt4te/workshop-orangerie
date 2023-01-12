@@ -12,11 +12,6 @@ export default defineConfig({
             additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
         }),
     ],
-    assetsInclude: [
-        'src/assets/img/splash/*.png',
-        'src/assets/paintings/**/*.jpeg',
-        'src/assets/paintings/**/stickers/*.png',
-    ],
     css: {
         preprocessorOptions: {
             scss: {

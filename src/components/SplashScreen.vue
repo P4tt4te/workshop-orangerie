@@ -22,10 +22,7 @@
                 v-for="n in 5"
                 ref="backgroundPortrait"
             >
-                <img
-                    :src="'src/assets/img/splash/' + (n - 1) + '.jpg'"
-                    alt=""
-                />
+                <img :src="'/img/splash/' + (n - 1) + '.jpg'" alt="" />
             </div>
         </div>
         <SlideButton
