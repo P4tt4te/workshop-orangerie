@@ -46,6 +46,11 @@ $size: 15vh;
     transition: 1s ease-in-out all;
 
     &.active {
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    &.active .Sticker {
         transform: translate3d(
             var(--left) - calc($size / 2),
             var(--top) - calc($size / 2),
