@@ -12,8 +12,8 @@
                 "answer": "Une toque",
                 "isAnswered": false,
                 "coords": {
-                    "x": 25.5,
-                    "y": 1
+                    "x": 10,
+                    "y": 0
                 }
             },
             {
@@ -23,8 +23,8 @@
                 "answer": "L'oreille",
                 "isAnswered": false,
                 "coords": {
-                    "x": 55.5,
-                    "y": 12.5
+                    "x": 53,
+                    "y": 15
                 }
             },
             {
@@ -34,8 +34,8 @@
                 "answer": "Rouge",
                 "isAnswered": false,
                 "coords": {
-                    "x": 22.5,
-                    "y": 66
+                    "x": 35,
+                    "y": 62
                 }
             }
         ]
