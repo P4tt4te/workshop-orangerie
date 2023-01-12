@@ -123,7 +123,10 @@ export default {
             }
         },
         handGesture(results) {
-            if (results.multiHandLandmarks) {
+            if (
+                results.multiHandLandmarks &&
+                results.multiHandLandmarks.length != 0
+            ) {
                 for (const landmarks of results.multiHandLandmarks) {
                     var A = landmarks[12]
                     var B = landmarks[9]
@@ -138,6 +141,9 @@ export default {
                         this.isHandClosed = true
                     }
                 }
+                document.getElementById('cursor').style.display = 'block'
+            } else {
+                document.getElementById('cursor').style.display = 'none'
             }
         },
         handleCursor() {
@@ -171,7 +177,6 @@ export default {
     watch: {
         isHandClosed: function (val) {
             if (val) {
-                console.log('handClosed')
                 this.sendEvent(true)
                 document
                     .elementFromPoint(this.mousePosX, this.mousePosY)
