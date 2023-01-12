@@ -54,10 +54,13 @@ export default {
             })
 
             const allButClicked = [...this.$refs.item]
-
             if (index > -1) {
                 allButClicked.splice(index, 1)
             }
+
+            allButClicked.forEach((item) => {
+                item.style = 'pointer-events: none'
+            })
 
             tl.to(this.$refs.item[index], {
                 duration: 1,
@@ -112,12 +115,6 @@ export default {
         &:nth-child(3) {
             top: 10%;
             left: 60%;
-        }
-
-        &:hover {
-            opacity: 1 !important; // Override GSAP inline-styling
-            animation-play-state: paused;
-            z-index: 10;
         }
     }
 }
