@@ -47,10 +47,14 @@
         "image": "image2.jpeg",
         "questions": [
             {
-                "question": "Rédiger une question ici",
+                "question": "Quelle mimique lisez-vous sur le visage de la fiancée ?",
                 "id": 0,
-                "options": ["A", "B", "B"],
-                "answer": "A",
+                "options": [
+                    "Elle ouvre la bouche",
+                    "Elle ferme un œil",
+                    "Elle pleure"
+                ],
+                "answer": "Elle ferme un œil",
                 "isAnswered": false,
                 "coords": {
                     "x": 32,
@@ -105,8 +109,8 @@
             {
                 "question": "Quelle expression semble revêtir l’enfant de chœur ?",
                 "id": 1,
-                "options": ["La tristesse", "La joie", "Les deux"],
-                "answer": "Les deux",
+                "options": ["La tristesse", "La joie", "Un mélange des deux"],
+                "answer": "Un mélange des deux",
                 "isAnswered": false,
                 "coords": {
                     "x": 25,
@@ -114,10 +118,10 @@
                 }
             },
             {
-                "question": "Rédiger une question ici",
+                "question": "Quelle discrète touche de couleur a été ajoutée par-dessus le rouge ?",
                 "id": 2,
-                "options": ["Un morceau de pain", "Un chiffon", "Un couteau"],
-                "answer": "Un chiffon",
+                "options": ["Du vert", "Du jaune", "Du bleu clair"],
+                "answer": "Du jaune",
                 "isAnswered": false,
                 "coords": {
                     "x": 13,
