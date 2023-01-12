@@ -21,10 +21,11 @@
             </transition>
             <PaintHole
                 v-for="(poi, index) in portrait.questions"
-                @click.native="startQuiz(index)"
+                @click.native="trigger(index)"
                 :key="index"
                 :left="poi.coords.x"
                 :top="poi.coords.y"
+                ref="poi"
                 :image="
                     'src/assets/paintings/painting-' +
                     portrait.id +
@@ -32,6 +33,7 @@
                     (index + 1) +
                     '.png'
                 "
+                :index="index"
                 :status="poi.isAnswered"
             />
             <img
@@ -92,6 +94,20 @@ export default {
         }
     },
     methods: {
+        trigger(index) {
+            this.startQuiz(index)
+
+            this.$refs.poi[index].$el.children[1].classList.add('visible')
+
+            const allButClicked = [...this.$refs.poi]
+            if (index > -1) {
+                allButClicked.splice(index, 1)
+            }
+
+            allButClicked.forEach((item) => {
+                item.$el.children[1].classList.remove('visible')
+            })
+        },
         startQuiz(index) {
             this.clearAudio()
             this.isQuizActive = true

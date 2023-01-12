@@ -3,7 +3,6 @@
         :style="{ '--top': top + '%', '--left': left + '%' }"
         :class="[!status ? activeClass : disabledClass, pingClass]"
     >
-        <div :class="[!status, 'poi']"></div>
     </div>
 </template>
 
@@ -43,18 +42,6 @@ $size: 15vh;
 
     &.disabled {
         pointer-events: none;
-    }
-
-    .poi {
-        background-color: $white;
-        border-radius: 50%;
-        height: 3rem;
-        width: 3rem;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        animation: pulse-black 2s infinite;
     }
 }
 
