@@ -35,8 +35,11 @@ export default {
         }
     },
     mounted() {
-        const app = document.getElementsByClassName('Home')
-        this.initPane(app)
+        let tab = window.location.href.split('#')
+        if (tab.length > 0 && tab[tab.length - 1] === 'debug') {
+            const app = document.getElementsByClassName('Experience')[0]
+            this.initPane(app)
+        }
     },
     methods: {
         initPane($app) {
@@ -154,8 +157,7 @@ export default {
             })
         },
         transform(params) {
-            let home = document.getElementsByClassName('Home')[0]
-            console.log(home)
+            let home = document.getElementsByClassName('Experience')[0]
 
             home.style.transform = `
             perspective(${params.perspective}px)
