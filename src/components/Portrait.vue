@@ -124,7 +124,7 @@ export default {
 
             this.clearAudio()
             this.audio = new Audio(
-                `src/assets/paintings/painting-${this.portrait.id}/audios/${question.id}.mp3`
+                `/paintings/painting-${this.portrait.id}/audios/${question.id}.mp3`
             )
             this.audio.play()
 
@@ -139,7 +139,7 @@ export default {
                     this.audio.currentTime = 0
                     this.clearAudio()
                     this.audio = new Audio(
-                        `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
+                        `/paintings/painting-${this.portrait.id}/audios/complete.mp3`
                     )
                     this.subtitles = await import(
                         `@/assets/paintings/painting-${this.portrait.id}/subtitles/complete.json`
