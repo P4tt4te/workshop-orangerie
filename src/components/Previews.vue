@@ -54,6 +54,11 @@ export default {
             defaults: {
                 ease: 'Power4.easeOut',
             },
+            onComplete: () => {
+                this.$refs.item.forEach((item) => {
+                    item.style = 'pointer-events: auto'
+                })
+            },
         })
 
         tl.from(this.$refs.footer, {
@@ -157,6 +162,7 @@ export default {
         width: 35rem;
         opacity: 0.8;
         position: absolute;
+        pointer-events: none;
 
         &:nth-child(odd) {
             animation: orbit 8s linear infinite;
