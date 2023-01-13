@@ -151,9 +151,10 @@ export default {
                     ).then((module) => {
                         return module.default
                     })
-                    setTimeout(() => {
+                    let timeoutEnd = setTimeout(() => {
                         this.isComplete = true
                         this.audio.play()
+                        clearTimeout(timeoutEnd)
                     }, 800)
                 })
             }
