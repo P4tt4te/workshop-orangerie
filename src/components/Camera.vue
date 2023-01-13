@@ -21,7 +21,7 @@
                 <span class="time"
                     >{{ this.timeBeforeRestart }} sec avant relance</span
                 >
-                <span>Pas de main connecté</span>
+                <span>Aucune main détectée</span>
             </div>
         </div>
     </div>
