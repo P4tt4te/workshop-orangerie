@@ -1,28 +1,24 @@
 <template>
     <div
         :class="[status && activeClass, paintholeClass]"
-        :style="{ '--top': top + '%', '--left': left + '%' }"
+        :style="{
+            '--top': top + '%',
+            '--left': left + '%',
+            '--width': width + '%',
+        }"
     >
-        <!--<Ping :top="top" :left="left" :status="status" /> -->
-        <!--<Sticker :top="top" :left="left" :image="image" />-->
         <img class="calc" :src="image" />
         <div class="poi"></div>
     </div>
 </template>
 
 <script>
-import Ping from './Ping.vue'
-import Sticker from './Sticker.vue'
-
 export default {
-    components: {
-        Ping,
-        Sticker,
-    },
     props: {
         image: String,
         top: Number,
         left: Number,
+        width: Number,
         index: Number,
         status: Boolean,
     },
@@ -40,11 +36,10 @@ $size: 15vh;
 
 .Painthole {
     position: absolute;
-    width: max-content;
+    width: var(--width);
     height: max-content;
     top: var(--top);
     left: var(--left);
-    transform: scale(.6);
     transition: 1s ease-in-out all;
 
     .poi {
@@ -72,16 +67,6 @@ $size: 15vh;
         pointer-events: none;
         opacity: 0;
         visibility: hidden;
-    }
-
-    &.active .Sticker {
-        transform: translate3d(
-            var(--left) - calc($size / 2),
-            var(--top) - calc($size / 2),
-            0
-        );
-        transition-delay: 0s;
-        opacity: 0;
     }
 }
 </style>

@@ -25,6 +25,7 @@
                 :key="index"
                 :left="poi.coords.x"
                 :top="poi.coords.y"
+                :width="poi.coords.width"
                 ref="poi"
                 :image="
                     'src/assets/paintings/painting-' +
