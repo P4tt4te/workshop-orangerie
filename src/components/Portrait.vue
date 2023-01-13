@@ -44,19 +44,11 @@
                     :status="poi.isAnswered"
                 />
                 <img
-                    :src="
-                        'src/assets/paintings/painting-' +
-                        portrait.id +
-                        '/image.jpeg'
-                    "
+                    :src="'/paintings/painting-' + portrait.id + '/image.jpeg'"
                     v-if="!isComplete || portrait.isComplete === false"
                 />
                 <video
-                    :src="
-                        'src/assets/paintings/painting-' +
-                        portrait.id +
-                        '/video.mp4'
-                    "
+                    :src="'/paintings/painting-' + portrait.id + '/video.mp4'"
                     ref="video"
                     v-show="isComplete || portrait.isComplete === true"
                     muted
