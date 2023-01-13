@@ -4,19 +4,22 @@
             <button
                 class="Portrait__go-back"
                 @click="$emit('closePortrait', portrait.id)"
-                v-if="portrait.isComplete"
+                v-if="isComplete || portrait.isComplete"
             >
                 Revenir en arrière
             </button>
             <PortraitMeta
-                v-if="portrait.isComplete"
+                v-if="isComplete || portrait.isComplete"
                 :title="portrait.title"
                 :date="portrait.date"
             />
             <div class="Portrait__illus">
                 <div
                     class="Portrait__overlay"
-                    v-if="isOverlayActive && !portrait.isComplete"
+                    v-if="
+                        (isOverlayActive && isComplete) ||
+                        (isOverlayActive && portrait.isComplete)
+                    "
                 >
                     <div class="icon">
                         <img src="@/assets/svg/pointer-icon.svg" alt="" />
@@ -49,7 +52,7 @@
                         portrait.id +
                         '/image.jpeg'
                     "
-                    v-if="!portrait.isComplete"
+                    v-if="!isComplete || portrait.isComplete === false"
                 />
                 <video
                     :src="
@@ -57,7 +60,7 @@
                         portrait.id +
                         '/video.mp4'
                     "
-                    v-if="portrait.isComplete"
+                    v-if="isComplete || portrait.isComplete"
                     ref="video"
                 ></video>
             </div>
@@ -190,13 +193,17 @@ export default {
             }
         }, 100)
     },
-    updated() {
-        this.$nextTick(() => {
-            if (this.$refs.video) {
-                this.$refs.video.play()
-            }
-        })
-    },
+    // watch: {
+    //     isComplete(value) {
+    //         this.$set(this.video, 'video', this.$refs.video)
+    //     },
+    //     video: {
+    //         handler(newVal, oldVal) {
+    //             console.log(this.$refs.video)
+    //         },
+    //         deep: true,
+    //     },
+    // },
     beforeDestroy() {
         this.clearAudio()
     },
@@ -241,7 +248,7 @@ export default {
         justify-content: center;
         align-items: center;
         text-align: center;
-        animation: fade-out cubic-bezier(0.215, 0.61, 0.355, 1) 5s forwards;
+        animation: fade-out cubic-bezier(0.215, 0.61, 0.355, 1) 4s forwards;
 
         .icon {
             width: 6.4rem;
