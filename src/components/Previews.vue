@@ -1,5 +1,8 @@
 <template>
     <div class="Previews">
+        <div class="Previews__logo" ref="logo">
+            <img src="@/assets/svg/app-logo.svg" />
+        </div>
         <div class="Previews__wrapper">
             <div
                 class="item"
@@ -15,8 +18,26 @@
                         '/image.jpeg'
                     "
                     alt=""
+                    v-if="portrait.isComplete"
+                />
+                <img
+                    :src="
+                        'src/assets/paintings/painting-' +
+                        portrait.id +
+                        '/dirty-image.jpeg'
+                    "
+                    alt=""
+                    v-if="!portrait.isComplete"
                 />
             </div>
+            <footer class="Previews__footer" ref="footer">
+                <div class="icon">
+                    <img src="@/assets/svg/pointer-icon.svg" alt="" />
+                </div>
+                <p class="text">
+                    Pointez une œuvre pour tenter de la restaurer
+                </p>
+            </footer>
         </div>
     </div>
 </template>
@@ -33,12 +54,24 @@ export default {
             defaults: {
                 ease: 'Power4.easeOut',
             },
+            onComplete: () => {
+                this.$refs.item.forEach((item) => {
+                    item.style = 'pointer-events: auto'
+                })
+            },
         })
 
+        tl.from(this.$refs.footer, {
+            duration: 2,
+            autoAlpha: 0,
+        })
         tl.from(this.$refs.item, {
             duration: 2,
-            delay: 1,
             top: '50%',
+            autoAlpha: 0,
+        })
+        tl.from(this.$refs.logo, {
+            duration: 1,
             autoAlpha: 0,
         })
     },
@@ -80,6 +113,11 @@ export default {
                 autoAlpha: 0,
                 top: '50%',
             })
+            tl.to(this.$refs.logo, {
+                delay: -1,
+                duration: 1,
+                autoAlpha: 0,
+            })
         },
     },
     beforeDestroy() {
@@ -96,11 +134,48 @@ export default {
         height: 100%;
     }
 
+    &__logo {
+        width: 25rem;
+        position: absolute;
+        top: 6rem;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+
+    &__footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        padding-bottom: 6rem;
+
+        .icon {
+            width: 6.4rem;
+            margin: auto;
+            margin-bottom: 2rem;
+        }
+
+        .text {
+            font-family: $mono;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+    }
+
     .item {
         width: 35rem;
         opacity: 0.8;
         position: absolute;
-        animation: orbit 8s linear infinite;
+        pointer-events: none;
+
+        &:nth-child(odd) {
+            animation: orbit 8s linear infinite;
+        }
+
+        &:nth-child(even) {
+            animation: reverse-orbit 8s linear infinite;
+        }
 
         &:nth-child(1) {
             top: 20%;
@@ -109,12 +184,12 @@ export default {
 
         &:nth-child(2) {
             top: 30%;
-            left: 45%;
+            left: 40%;
         }
 
         &:nth-child(3) {
             top: 10%;
-            left: 60%;
+            left: 55%;
         }
     }
 }

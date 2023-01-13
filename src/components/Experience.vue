@@ -48,7 +48,8 @@ export default {
             this.isPortraitActive = true
             this.portrait = this.portraits[index]
         },
-        closePortrait() {
+        closePortrait(completedPortraitId) {
+            this.portraits[completedPortraitId].isComplete = true
             this.isPortraitActive = false
         },
     },

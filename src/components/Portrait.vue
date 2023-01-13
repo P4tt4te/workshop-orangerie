@@ -1,16 +1,23 @@
 <template>
-    <div class="Portrait wrap-resp">
-        <button class="Portrait__go-back" @click="$emit('closePortrait')">
-            BOUTON RETOUR
-        </button>
-        <PortraitMeta
-            v-if="isComplete"
-            :title="portrait.title"
-            :date="portrait.date"
-        />
-        <div class="Portrait__illus">
-            <transition name="fade">
-                <div class="Portrait__overlay" v-if="isOverlayActive">
+    <transition name="fade">
+        <div class="Portrait wrap-resp">
+            <button
+                class="Portrait__go-back"
+                @click="$emit('closePortrait', portrait.id)"
+                v-if="isComplete || portrait.isComplete"
+            >
+                Revenir en arrière
+            </button>
+            <PortraitMeta
+                v-if="isComplete || portrait.isComplete"
+                :title="portrait.title"
+                :date="portrait.date"
+            />
+            <div class="Portrait__illus">
+                <div
+                    class="Portrait__overlay"
+                    v-if="isOverlayActive && !portrait.isComplete"
+                >
                     <div class="icon">
                         <img src="@/assets/svg/pointer-icon.svg" alt="" />
                     </div>
@@ -18,52 +25,51 @@
                         Pointez une zone abîmée pour tenter de la restaurer
                     </p>
                 </div>
-            </transition>
-            <PaintHole
-                v-for="(poi, index) in portrait.questions"
-                @click.native="trigger(index)"
-                :key="index"
-                :left="poi.coords.x"
-                :top="poi.coords.y"
-                :width="poi.coords.width"
-                ref="poi"
-                :image="
-                    'src/assets/paintings/painting-' +
-                    portrait.id +
-                    '/stickers/calc' +
-                    (index + 1) +
-                    '.png'
-                "
-                :index="index"
-                :status="poi.isAnswered"
+                <PaintHole
+                    v-for="(poi, index) in portrait.questions"
+                    @click.native="trigger(index)"
+                    :key="index"
+                    :left="poi.coords.x"
+                    :top="poi.coords.y"
+                    ref="poi"
+                    :width="poi.coords.width"
+                    :image="
+                        'src/assets/paintings/painting-' +
+                        portrait.id +
+                        '/stickers/calc' +
+                        (index + 1) +
+                        '.png'
+                    "
+                    :index="index"
+                    :status="poi.isAnswered"
+                />
+                <img
+                    :src="
+                        'src/assets/paintings/painting-' +
+                        portrait.id +
+                        '/image.jpeg'
+                    "
+                    v-if="!isComplete || portrait.isComplete === false"
+                />
+                <video
+                    :src="
+                        'src/assets/paintings/painting-' +
+                        portrait.id +
+                        '/video.mp4'
+                    "
+                    ref="video"
+                    v-show="isComplete || portrait.isComplete === true"
+                    muted
+                ></video>
+            </div>
+            <Quiz
+                v-if="isQuizActive"
+                :currentQuestion="currentQuestion"
+                @revealPoi="revealPoi"
             />
-            <img
-                :src="
-                    'src/assets/paintings/painting-' +
-                    portrait.id +
-                    '/image.jpeg'
-                "
-                v-if="!isComplete"
-            />
-            <!-- <transition name="fade"> -->
-            <video
-                :src="
-                    'src/assets/paintings/painting-' +
-                    portrait.id +
-                    '/video.mp4'
-                "
-                v-if="isComplete"
-                ref="video"
-            ></video>
-            <!-- </transition> -->
+            <Subtitles :currentSubtitles="currentSubtitles" />
         </div>
-        <Quiz
-            v-if="isQuizActive"
-            :currentQuestion="currentQuestion"
-            @revealPoi="revealPoi"
-        />
-        <Subtitles :currentSubtitles="currentSubtitles" />
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -148,10 +154,12 @@ export default {
                     ).then((module) => {
                         return module.default
                     })
-                    setTimeout(() => {
+                    let timeoutEnd = setTimeout(() => {
                         this.isComplete = true
+                        this.$refs.video.play()
                         this.audio.play()
-                    }, 1000)
+                        clearTimeout(timeoutEnd)
+                    }, 800)
                 })
             }
         },
@@ -184,13 +192,17 @@ export default {
             }
         }, 100)
     },
-    updated() {
-        this.$nextTick(() => {
-            if (this.$refs.video) {
-                this.$refs.video.play()
-            }
-        })
-    },
+    // watch: {
+    //     isComplete(value) {
+    //         this.$set(this.video, 'video', this.$refs.video)
+    //     },
+    //     video: {
+    //         handler(newVal, oldVal) {
+    //             console.log(this.$refs.video)
+    //         },
+    //         deep: true,
+    //     },
+    // },
     beforeDestroy() {
         this.clearAudio()
     },
@@ -208,6 +220,7 @@ export default {
 
     &__illus {
         position: relative;
+        // height: 70rem;
         height: 75%;
 
         img {
@@ -234,6 +247,7 @@ export default {
         justify-content: center;
         align-items: center;
         text-align: center;
+        animation: fade-out cubic-bezier(0.215, 0.61, 0.355, 1) 4s forwards;
 
         .icon {
             width: 6.4rem;
@@ -248,15 +262,36 @@ export default {
         }
     }
 
-    // DEBUG
     &__go-back {
+        border: 0.05rem solid $white;
+        border-radius: 10rem;
+        font-family: $mono;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
         position: absolute;
-        top: 6rem;
-        right: 0;
+        left: 6rem;
+        padding: 2rem;
+        width: 30rem;
+        text-align: center;
         z-index: 20;
-        padding: 5rem;
-        background-color: $white;
-        color: $black;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
 </style>
