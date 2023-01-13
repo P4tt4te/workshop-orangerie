@@ -56,8 +56,9 @@
                         portrait.id +
                         '/video.mp4'
                     "
-                    v-else
                     ref="video"
+                    v-show="isComplete || portrait.isComplete === true"
+                    muted
                 ></video>
             </div>
             <Quiz
@@ -154,6 +155,7 @@ export default {
                     })
                     let timeoutEnd = setTimeout(() => {
                         this.isComplete = true
+                        this.$refs.video.play()
                         this.audio.play()
                         clearTimeout(timeoutEnd)
                     }, 800)
