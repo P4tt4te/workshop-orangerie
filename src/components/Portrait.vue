@@ -34,7 +34,7 @@
                     ref="poi"
                     :width="poi.coords.width"
                     :image="
-                        'src/assets/paintings/painting-' +
+                        '/paintings/painting-' +
                         portrait.id +
                         '/stickers/calc' +
                         (index + 1) +
