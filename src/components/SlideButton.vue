@@ -147,6 +147,7 @@ export default {
     align-items: center;
     padding-right: 2rem;
     padding-left: 1rem;
+    margin-bottom: 1.5rem;
     width: 370px;
     height: 59px;
     border: 0.05rem solid $white;

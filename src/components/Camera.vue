@@ -314,7 +314,7 @@ export default {
 .output_canvas {
     width: 20%;
     height: 20%;
-    opacity: 0.5;
+    opacity: 0;
 }
 
 #cursor {
