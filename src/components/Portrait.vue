@@ -16,10 +16,7 @@
             <div class="Portrait__illus">
                 <div
                     class="Portrait__overlay"
-                    v-if="
-                        (isOverlayActive && isComplete) ||
-                        (isOverlayActive && portrait.isComplete)
-                    "
+                    v-if="isOverlayActive && !portrait.isComplete"
                 >
                     <div class="icon">
                         <img src="@/assets/svg/pointer-icon.svg" alt="" />
@@ -60,7 +57,7 @@
                         portrait.id +
                         '/video.mp4'
                     "
-                    v-if="isComplete || portrait.isComplete"
+                    v-else
                     ref="video"
                 ></video>
             </div>
