@@ -1,5 +1,8 @@
 <template>
     <div class="Previews">
+        <div class="Previews__logo" ref="logo">
+            <img src="@/assets/svg/app-logo.svg" />
+        </div>
         <div class="Previews__wrapper">
             <div
                 class="item"
@@ -62,6 +65,10 @@ export default {
             top: '50%',
             autoAlpha: 0,
         })
+        tl.from(this.$refs.logo, {
+            duration: 1,
+            autoAlpha: 0,
+        })
     },
     methods: {
         showPortrait(index) {
@@ -117,6 +124,14 @@ export default {
         height: 100%;
     }
 
+    &__logo {
+        width: 25rem;
+        position: absolute;
+        top: 6rem;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+
     &__footer {
         position: absolute;
         left: 0;
@@ -158,12 +173,12 @@ export default {
 
         &:nth-child(2) {
             top: 30%;
-            left: 45%;
+            left: 40%;
         }
 
         &:nth-child(3) {
             top: 10%;
-            left: 60%;
+            left: 55%;
         }
     }
 }
