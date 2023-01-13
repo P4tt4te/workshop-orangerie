@@ -113,6 +113,11 @@ export default {
                 autoAlpha: 0,
                 top: '50%',
             })
+            tl.to(this.$refs.logo, {
+                delay: -1,
+                duration: 1,
+                autoAlpha: 0,
+            })
         },
     },
     beforeDestroy() {
