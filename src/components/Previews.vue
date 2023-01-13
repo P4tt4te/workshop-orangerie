@@ -12,17 +12,13 @@
                 @click="showPortrait(index)"
             >
                 <img
-                    :src="
-                        'src/assets/paintings/painting-' +
-                        portrait.id +
-                        '/image.jpeg'
-                    "
+                    :src="'/paintings/painting-' + portrait.id + '/image.jpeg'"
                     alt=""
                     v-if="portrait.isComplete"
                 />
                 <img
                     :src="
-                        'src/assets/paintings/painting-' +
+                        '/paintings/painting-' +
                         portrait.id +
                         '/dirty-image.jpeg'
                     "

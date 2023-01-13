@@ -34,7 +34,7 @@
                     ref="poi"
                     :width="poi.coords.width"
                     :image="
-                        'src/assets/paintings/painting-' +
+                        '/paintings/painting-' +
                         portrait.id +
                         '/stickers/calc' +
                         (index + 1) +
@@ -44,19 +44,11 @@
                     :status="poi.isAnswered"
                 />
                 <img
-                    :src="
-                        'src/assets/paintings/painting-' +
-                        portrait.id +
-                        '/image.jpeg'
-                    "
+                    :src="'/paintings/painting-' + portrait.id + '/image.jpeg'"
                     v-if="!isComplete || portrait.isComplete === false"
                 />
                 <video
-                    :src="
-                        'src/assets/paintings/painting-' +
-                        portrait.id +
-                        '/video.mp4'
-                    "
+                    :src="'/paintings/painting-' + portrait.id + '/video.mp4'"
                     ref="video"
                     v-show="isComplete || portrait.isComplete === true"
                     muted
@@ -132,7 +124,7 @@ export default {
 
             this.clearAudio()
             this.audio = new Audio(
-                `src/assets/paintings/painting-${this.portrait.id}/audios/${question.id}.mp3`
+                `/paintings/painting-${this.portrait.id}/audios/${question.id}.mp3`
             )
             this.audio.play()
 
@@ -147,7 +139,7 @@ export default {
                     this.audio.currentTime = 0
                     this.clearAudio()
                     this.audio = new Audio(
-                        `src/assets/paintings/painting-${this.portrait.id}/audios/complete.mp3`
+                        `/paintings/painting-${this.portrait.id}/audios/complete.mp3`
                     )
                     this.subtitles = await import(
                         `@/assets/paintings/painting-${this.portrait.id}/subtitles/complete.json`
