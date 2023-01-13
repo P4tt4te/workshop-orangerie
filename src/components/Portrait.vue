@@ -4,18 +4,20 @@
             <button
                 class="Portrait__go-back"
                 @click="$emit('closePortrait', portrait.id)"
-                v-if="isComplete"
+                v-if="portrait.isComplete"
             >
-                Revenir au début
+                Revenir en arrière
             </button>
             <PortraitMeta
-                v-if="isComplete"
+                v-if="portrait.isComplete"
                 :title="portrait.title"
                 :date="portrait.date"
             />
-
             <div class="Portrait__illus">
-                <div class="Portrait__overlay" v-if="isOverlayActive">
+                <div
+                    class="Portrait__overlay"
+                    v-if="isOverlayActive && !portrait.isComplete"
+                >
                     <div class="icon">
                         <img src="@/assets/svg/pointer-icon.svg" alt="" />
                     </div>
@@ -23,7 +25,6 @@
                         Pointez une zone abîmée pour tenter de la restaurer
                     </p>
                 </div>
-
                 <PaintHole
                     v-for="(poi, index) in portrait.questions"
                     @click.native="trigger(index)"
@@ -48,7 +49,7 @@
                         portrait.id +
                         '/image.jpeg'
                     "
-                    v-if="!isComplete"
+                    v-if="!portrait.isComplete"
                 />
                 <video
                     :src="
@@ -56,7 +57,7 @@
                         portrait.id +
                         '/video.mp4'
                     "
-                    v-if="isComplete"
+                    v-if="portrait.isComplete"
                     ref="video"
                 ></video>
             </div>
@@ -262,7 +263,7 @@ export default {
         text-transform: uppercase;
         letter-spacing: 0.1rem;
         position: absolute;
-        bottom: 6rem;
+        left: 6rem;
         padding: 2rem;
         width: 30rem;
         text-align: center;
