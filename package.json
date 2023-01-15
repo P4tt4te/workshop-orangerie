@@ -8,6 +8,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1640029074",
+    "@mediapipe/control_utils": "^0.6.1629159505",
+    "@mediapipe/drawing_utils": "^0.3.1620248257",
+    "@mediapipe/hands": "^0.4.1646424915",
+    "@mediapipe/holistic": "^0.5.1635989137",
+    "@mediapipe/tasks-vision": "^0.1.0-alpha-1",
+    "gsap": "^3.5.1",
+    "interactjs": "^1.10.17",
+    "tweakpane": "^3.1.1",
     "vue": "^2.7.7",
     "vue-router": "^3.5.4"
   },
@@ -19,6 +28,7 @@
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "prettier": "^2.5.1",
+    "sass": "^1.57.1",
     "terser": "^5.14.2",
     "vite": "^3.0.2"
   }

@@ -1,0 +1,142 @@
+[
+    {
+        "id": 0,
+        "title": "Le Petit Pâtissier",
+        "date": "1922-1923",
+        "image": "image1.jpeg",
+        "questions": [
+            {
+                "question": "Selon vous, quel couvre-chef est caractéristique d’un pâtissier du début du 20ème siècle ?",
+                "id": 0,
+                "options": ["Un béret", "Une toque", "Un haut-de-forme"],
+                "answer": "Une toque",
+                "isAnswered": false,
+                "coords": {
+                    "x": 27,
+                    "y": 0,
+                    "width": 51
+                }
+            },
+            {
+                "question": "Albert Barnes s’est écrié “Mais c’est une pêche!” en détaillant une partie du tableau. Laquelle?",
+                "id": 1,
+                "options": ["L'oreille", "Le nez", "Les yeux"],
+                "answer": "L'oreille",
+                "isAnswered": false,
+                "coords": {
+                    "x": 54,
+                    "y": 17,
+                    "width": 18
+                }
+            },
+            {
+                "question": "De quelle couleur est le chiffon que tient le pâtissier ? ",
+                "id": 2,
+                "options": ["Bleu", "Jaune", "Rouge"],
+                "answer": "Rouge",
+                "isAnswered": false,
+                "coords": {
+                    "x": 38,
+                    "y": 64,
+                    "width": 33
+                }
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "title": "La Fiancée",
+        "date": "1923",
+        "image": "image2.jpeg",
+        "questions": [
+            {
+                "question": "Quelle mimique lisez-vous sur le visage de la fiancée ?",
+                "id": 0,
+                "options": [
+                    "Elle ouvre la bouche",
+                    "Elle ferme un œil",
+                    "Elle pleure"
+                ],
+                "answer": "Elle ferme un œil",
+                "isAnswered": false,
+                "coords": {
+                    "x": 37,
+                    "y": 0,
+                    "width": 32
+                }
+            },
+            {
+                "question": "Quelle partie du corps Soutine a-t-il choisi d’exagérer dans sa représentation ?",
+                "id": 1,
+                "options": ["La poitrine", "Le cou", "Les épaules"],
+                "answer": "Les épaules",
+                "isAnswered": false,
+                "coords": {
+                    "x": 20.5,
+                    "y": 22,
+                    "width": 70
+                }
+            },
+            {
+                "question": "Sur quel meuble s’appuie la fiancée peinte par Soutine ?",
+                "id": 2,
+                "options": ["Une commode", "Une coiffeuse", "Une chaise"],
+                "answer": "Une chaise",
+                "isAnswered": false,
+                "coords": {
+                    "x": 15.4,
+                    "y": 69.3,
+                    "width": 72
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Enfant de chœur",
+        "date": "1927-1928",
+        "image": "image3.jpeg",
+        "questions": [
+            {
+                "question": "Quelle expression semble revêtir l’enfant de chœur ?",
+                "id": 0,
+                "options": ["La tristesse", "La joie", "Un mélange des deux"],
+                "answer": "Un mélange des deux",
+                "isAnswered": false,
+                "coords": {
+                    "x": 35,
+                    "y": 6,
+                    "width": 29
+                }
+            },
+            {
+                "question": "Quelle discrète touche de couleur a été ajoutée par-dessus le rouge ?",
+                "id": 1,
+                "options": ["Du vert", "Du jaune", "Du bleu clair"],
+                "answer": "Du jaune",
+                "isAnswered": false,
+                "coords": {
+                    "x": 37,
+                    "y": 32,
+                    "width": 27
+                }
+            },
+            {
+                "question": "Quelle posture arbore l’enfant de chœur ?",
+                "id": 2,
+                "options": [
+                    "Il a les mains jointes",
+                    "Il croise les bras",
+                    "Il a les bras le long du corps"
+                ],
+                "answer": "Il a les mains jointes",
+                "isAnswered": false,
+                "coords": {
+                    "x": 20,
+                    "y": 71,
+                    "width": 21
+                }
+            }
+        ]
+    }
+]
